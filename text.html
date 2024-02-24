@@ -1,20 +1,112 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title> Об'єднання клітинок </title>
-  </head>
-  <body>
-    <table cellspacing="15">
-        <tr>
-          <td>
-            <img src="avatar.jpeg" width="200" alt="тут моє фото" />
-          </td>
-          <td>
-            <h1>Rostyslav Pakholok</h1>
-            <p><em>Я працюю на посаді software engineer в компанії <strong>Tribuna.</strong></em></p>
-            <p>Я люблю подорожувати, програмувати та проводити час із друзями.</p>
-          </td>
-        </tr>
-      </table>
-  </body>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Простая игра на HTML</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    #gameCanvas {
+        background-color: #f0f0f0;
+        display: block;
+        margin: auto;
+    }
+    .obstacle {
+        width: 30px;
+        height: 30px;
+        background-color: red;
+        position: absolute;
+    }
+    #player {
+        width: 30px;
+        height: 30px;
+        background-color: blue;
+        position: absolute;
+        bottom: 0;
+        left: 50px;
+    }
+</style>
+</head>
+<body>
+
+<canvas id="gameCanvas"></canvas>
+
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let playerX = 50;
+    let playerY = canvas.height - 60; // Updated player height
+    let playerVelocityY = 0;
+    let obstacles = [];
+    let score = 0;
+
+    function drawPlayer() {
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(playerX, playerY, 30, 30);
+    }
+
+    function drawObstacles() {
+        obstacles.forEach((obstacle) => {
+            ctx.fillStyle = 'red';
+            ctx.fillRect(obstacle.x, obstacle.y, 30, 30);
+        });
+    }
+
+    function updatePlayer() {
+        playerY += playerVelocityY;
+        if (playerY >= canvas.height - 30) {
+            playerY = canvas.height - 30;
+        }
+    }
+
+    function updateObstacles() {
+        obstacles.forEach((obstacle) => {
+            obstacle.x -= 5;
+            if (playerX < obstacle.x + 30 &&
+                playerX + 30 > obstacle.x &&
+                playerY < obstacle.y + 30 &&
+                playerY + 30 > obstacle.y) {
+                alert("Game Over! Your score: " + score);
+                location.reload(); // Reload the page to restart the game
+            }
+        });
+    }
+
+    function spawnObstacle() {
+        const obstacle = {
+            x: canvas.width,
+            y: canvas.height - 60 // Adjust obstacle height
+        };
+        obstacles.push(obstacle);
+    }
+
+    function gameLoop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawPlayer();
+        updatePlayer();
+        drawObstacles();
+        updateObstacles();
+        requestAnimationFrame(gameLoop);
+    }
+
+    window.addEventListener('keydown', function (e) {
+        if (e.code === 'Space' && playerY === canvas.height - 30) {
+            playerVelocityY = -10;
+        }
+    });
+
+    setInterval(spawnObstacle, 1500); // Generate obstacle every 1.5 seconds
+
+    gameLoop();
+</script>
+
+</body>
 </html>
