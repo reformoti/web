@@ -1,0 +1,53 @@
+body {
+    font-family: 'Comfortaa', sans-serif;
+    background-color: #1d1d1d;
+    color:aliceblue;
+    font-size: 20px;
+}
+.button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #3b3b3b;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.inp{
+    padding: 3px 8px;
+    border-radius: 5px;
+    color: aliceblue;
+    background-color: #666666;
+}
+.imgs{
+    border-radius: 10px;
+}
+
+.button:hover {
+    background-color: #999;
+    transform: translateY(-5px);
+}
+
+.button:active {
+    background-color: #555;
+}
+.DS{
+    font-style:italic ;
+    font-size: 40px;
+    font-family: 'Courier New', Courier, monospace;
+}
+.trr{
+    font-size: 25px;
+    font-style:italic ;
+    color:rgb(255, 254, 208);
+}
+.ool{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size:25px
+}
+h1{
+    font-family:Verdana, Geneva, Tahoma, sans-serif ;
+    color:rgb(188, 255, 233);
+}

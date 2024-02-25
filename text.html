@@ -43,7 +43,7 @@
     canvas.height = window.innerHeight;
 
     let playerX = 50;
-    let playerY = canvas.height - 60; // Updated player height
+    let playerY = canvas.height - 60; 
     let playerVelocityY = 0;
     let obstacles = [];
     let score = 0;
@@ -75,7 +75,7 @@
                 playerY < obstacle.y + 30 &&
                 playerY + 30 > obstacle.y) {
                 alert("Game Over! Your score: " + score);
-                location.reload(); // Reload the page to restart the game
+                location.reload(); 
             }
         });
     }
@@ -83,7 +83,7 @@
     function spawnObstacle() {
         const obstacle = {
             x: canvas.width,
-            y: canvas.height - 60 // Adjust obstacle height
+            y: canvas.height - 60 
         };
         obstacles.push(obstacle);
     }
@@ -103,10 +103,9 @@
         }
     });
 
-    setInterval(spawnObstacle, 1500); // Generate obstacle every 1.5 seconds
+    setInterval(spawnObstacle, 1500); 
 
     gameLoop();
 </script>
-
 </body>
 </html>
