@@ -1,0 +1,81 @@
+body {
+    background-color:rgb(3, 3, 3) ;
+    padding: 0;
+    color:rgb(255, 255, 255);
+}
+.fr{
+    width: 55px;
+    margin-left: 28px;
+    margin-top:19px ;
+    position: fixed;
+}
+.yo{
+    margin-top: 7px;
+    width: 500px;
+    margin-left: 106px;
+    position: fixed;
+}
+.ip{
+    border-color: aliceblue;
+    position:fixed;
+    padding-left: 25px;
+    font-size: 25px;
+    border-radius: 35px;
+    color:rgb(255, 255, 255);
+    background-color: rgb(15, 15, 15);
+    margin-top: 15px;
+    height: 60px;
+    width: 1000px;
+    margin-left: 450px;
+}
+.i{
+    width: 99%; 
+    position:fixed;
+}
+.m{
+    border-radius: 50px;
+    background-color: rgb(32, 32, 32);
+    padding: 8px 8px;
+    width: 50px;
+    margin-top: 17px;
+    margin-left: 1525px;
+    position: fixed;
+}
+.ms{
+    border-radius: 50px;
+    width: 70px;
+    margin-top: 20px;
+    margin-left: 1685px;
+    position: fixed;
+}
+.negr{
+    margin-top: 25px;
+    width: 50px;
+    margin-left: 1785px;
+    position: fixed;
+}
+.ava{
+    border-radius: 35px;
+    margin-top: 22px;
+    width: 65px;
+    margin-left: 1905px;
+    position: fixed;
+}
+.h{
+    border-radius: 35px;
+    margin-top: 85px;
+    margin-left: 300px;
+    position: static;
+   width: 1500px; 
+}
+.avv{
+    position: static;
+    border-radius: 200px;
+    margin-top: 85px;
+    margin-left: 370px;
+    width: 340px;
+}
+h1{
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 50px;
+}

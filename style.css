@@ -4,6 +4,13 @@ body {
     color:aliceblue;
     font-size: 20px;
 }
+.m{
+    width: 1000px;
+    height: 400px;
+    background-color:#aa2d2d;
+    border-radius: 30px;
+    margin-left: 550px;
+}
 .button {
     display: inline-block;
     padding: 8px 16px;
@@ -50,4 +57,19 @@ body {
 h1{
     font-family:Verdana, Geneva, Tahoma, sans-serif ;
     color:rgb(188, 255, 233);
+}
+.ooll{
+    color: #7e7d7d;
+    font-size: 20px;
+}
+button {
+    display: inline-block;
+    padding: 4px 16px;
+    background-color: #3b3b3b;
+    color: #cfcfcf;
+    text-decoration: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
+
 }
