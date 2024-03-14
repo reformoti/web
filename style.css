@@ -8,8 +8,8 @@ body {
     width: 1000px;
     height: 400px;
     background-color:#aa2d2d;
-    border-radius: 30px;
-    margin-left: 550px;
+    border-radius: 50px;
+    margin-left: 5px;
 }
 .button {
     display: inline-block;
