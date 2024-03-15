@@ -1,13 +1,20 @@
 body {
+    font-family: 'Comfortaa', sans-serif;
     background-color:rgb(3, 3, 3) ;
     padding: 0;
     color:rgb(255, 255, 255);
 }
 .fr{
-    width: 55px;
-    margin-left: 28px;
-    margin-top:19px ;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 40px;
+    margin-left: 18px;
+    margin-top:25px ;
     position: fixed;
+    padding: 10px 10px;
+    border-radius: 25px;
+}
+.fr:hover {
+    background-color: #999;
 }
 .yo{
     margin-top: 10px;
@@ -33,6 +40,7 @@ body {
     position:fixed;
 }
 .m{
+    transition: background-color 0.3s ease, transform 0.3s ease;
     border-radius: 50px;
     background-color: rgb(32, 32, 32);
     padding: 8px 8px;
@@ -40,6 +48,9 @@ body {
     margin-top: 17px;
     margin-left: 1525px;
     position: fixed;
+}
+.m:hover {
+    background-color: #999;
 }
 .ms{
     border-radius: 50px;
@@ -71,11 +82,59 @@ body {
 .avv{
     position: static;
     border-radius: 200px;
-    margin-top: 85px;
+    margin-top: 80px;
     margin-left: 370px;
-    width: 340px;
+    width: 320px;
 }
 h1{
-    font-family: 'Comfortaa', sans-serif;
+    padding-left: 25px;
     font-size: 50px;
+}
+.p{
+    padding-left: 25px;
+    font-size: 28px;
+    color:rgb(105, 105, 105);
+}
+.ta{
+    position: static;
+}
+.a{
+    font-size: 28px;
+    padding-left: 25px;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    color:rgb(41, 160, 160);
+}
+.button {
+    font-size: 22px;
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #3b3b3b;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.button:hover {
+    background-color: #999;
+}
+.left{
+    height: 99%;
+    position:fixed; 
+}
+.home{
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border-radius: 25px;
+    padding: 10px 10px;
+    background-color: #000000;
+    margin-top: 120px;
+    margin-left: 15px;
+    width: 50px;
+    position: fixed;
+}
+.home:hover {
+    background-color: #999;
 }
