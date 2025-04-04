@@ -6,9 +6,7 @@ const vP = document.getElementById('pButton');
 const vD = document.getElementById('divButton');
 const vMl = document.getElementById('mlButton');
 const tX = document.getElementById('p');
-
 let pM = '+';
-
 
 vMn.onclick = function() {
     pM = '-';
@@ -22,22 +20,28 @@ vP.onclick = function() {
 vMl.onclick = function() {
     pM = '*';
 }
+function colEr(rul){
+    if(rul > 0){
+        tx.style.color='grean'
+    } else if(rul < 0){
+        tx.style.color='red'
+    } 
+}
+function ff(inVan,inTwo, pM){
+    const van =  Number(inVan.value)
+    const two =  Number(inTwo.value)
+    if(pM == '+'){
+      return  van + two
+    } else if( pM == '-'){
+      return  van - two
+    } else if( pM == '/'){
+      return  van / two
+    } else if( pM == '*'){
+      return  van * two
+    } 
+}
 
 vClick.onclick = function () {
-    if(pM == '-'){
-        const sum =  Number(inVan.value) - Number(inTwo.value)
-        tX.textContent = sum;
-    }
-    if(pM == '+'){
-        const sum =  Number(inVan.value) + Number(inTwo.value)
-        tX.textContent = sum;
-    }
-    if(pM == '/'){
-        const sum =  Number(inVan.value) / Number(inTwo.value)
-        tX.textContent = sum;
-    }
-    if(pM == '*'){
-        const sum =  Number(inVan.value) * Number(inTwo.value)
-        tX.textContent = sum;
-    }
+   const sum = ff(inVan,inTwo, pM)
+   tX.textContent = sum;
 }

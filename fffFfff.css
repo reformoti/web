@@ -1,0 +1,78 @@
+body {
+    font-family: 'Comfortaa', sans-serif;
+    text-align: center;
+    overflow: hidden;
+    animation: waveAnimation 25s linear infinite;
+    background: linear-gradient(to right, #000066, #990000);
+    background-size: 200% 100%;
+}
+
+@keyframes waveAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+p {
+    color:#fff;
+ }
+h1 {
+   color:#fff;
+}
+
+.avatar {
+    margin-top: 250px;
+    width: 1000px; 
+    height: auto;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.button {
+    display: inline-block;
+    padding: 20px 32px;
+    background-color: #272627;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 80px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.button:hover {
+    background-color: #999;
+    transform: translateY(-5px);
+}
+
+.button:active {
+    background-color: #555;
+}
+
+.exit-button {
+    position: absolute;
+    bottom: 10px; 
+    left: 10px; 
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.watermark {
+    position: absolute;
+    bottom: 10px; 
+    left: 10px; 
+    color: #fff;
+    font-size: 12px; 
+}
