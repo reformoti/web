@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Космический Кликер</title>
+<title>Космический Кликер: Реформация</title>
 <style>
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
 body{
@@ -15,388 +15,297 @@ body{
   display:flex;
   flex-direction:column;
   align-items:center;
-  padding:10px;
+  padding:8px;
   transition:background-image 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-x:hidden;
   touch-action:pan-y;
 }
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap');
 
-/* Для мобильных устройств */
-@media (max-width: 768px) {
-  body{
-    padding:5px;
-    font-size:14px;
-  }
-}
-
 .game-container{
   width:100%;
-  max-width:1200px;
+  max-width:1000px;
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:15px;
+  gap:12px;
   position:relative;
   z-index:1;
 }
 
-/* Адаптивная верхняя панель */
+/* Кнопка звука */
+.sound-toggle {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: rgba(25,35,70,0.9);
+  border: 2px solid rgba(88, 179, 255, 0.4);
+  color: #8bb9ff;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+}
+
+.sound-toggle:hover {
+  transform: scale(1.1);
+  border-color: rgba(88, 179, 255, 0.7);
+  color: #b3d4ff;
+}
+
+/* Верхняя панель */
 .top-bar{
   width:100%;
   display:flex;
   justify-content:space-between;
-  padding:12px 5px;
-  background:rgba(10,15,30,0.85);
+  padding:10px 4px;
+  background:rgba(10,15,30,0.95);
   backdrop-filter:blur(15px);
-  border-radius:15px;
-  border:1px solid rgba(88, 179, 255, 0.2);
-  box-shadow:0 8px 30px rgba(0,0,0,0.5),
-             inset 0 0 20px rgba(0,150,255,0.05);
-  margin-bottom:15px;
+  border-radius:12px;
+  border:1px solid rgba(88, 179, 255, 0.25);
+  box-shadow:0 6px 20px rgba(0,0,0,0.6),
+             inset 0 0 15px rgba(0,150,255,0.05);
+  margin-bottom:12px;
 }
 
 @media (max-width: 768px) {
   .top-bar{
     flex-direction:column;
-    gap:10px;
-    padding:15px;
-    border-radius:20px;
+    gap:8px;
+    padding:12px;
   }
 }
 
 .astro-btn{
-  background:linear-gradient(145deg, rgba(25,35,70,0.9), rgba(15,25,50,0.9));
+  background:linear-gradient(145deg, rgba(25,35,70,0.95), rgba(15,25,50,0.95));
   border:none;
   color:#8bb9ff;
-  padding:12px 20px;
-  border-radius:12px;
+  padding:10px 16px;
+  border-radius:10px;
   cursor:pointer;
   font-weight:600;
-  font-size:14px;
+  font-size:13px;
   font-family:'Orbitron', sans-serif;
   transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border:1px solid rgba(88, 179, 255, 0.3);
-  box-shadow:0 4px 15px rgba(0,0,0,0.4),
-             inset 0 0 10px rgba(88, 179, 255, 0.05);
+  border:1px solid rgba(88, 179, 255, 0.35);
+  box-shadow:0 3px 12px rgba(0,0,0,0.4),
+             inset 0 0 8px rgba(88, 179, 255, 0.08);
   letter-spacing:0.5px;
   text-transform:uppercase;
-  min-height:50px;
+  min-height:45px;
   display:flex;
   align-items:center;
   justify-content:center;
   flex:1;
-  margin:0 5px;
+  margin:0 4px;
   touch-action:manipulation;
 }
 
-@media (max-width: 768px) {
-  .astro-btn{
-    width:100%;
-    margin:5px 0;
-    padding:15px;
-    font-size:16px;
-    min-height:55px;
-  }
-}
-
 .astro-btn:hover{
-  transform:translateY(-2px) scale(1.03);
-  box-shadow:0 8px 25px rgba(0,100,255,0.3),
-             inset 0 0 15px rgba(88, 179, 255, 0.1);
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(0,100,255,0.4),
+             inset 0 0 12px rgba(88, 179, 255, 0.15);
   color:#b3d4ff;
-  border-color:rgba(88, 179, 255, 0.4);
+  border-color:rgba(88, 179, 255, 0.5);
 }
 
-/* Адаптивная статистика */
+/* Статистика */
 .stats-container{
   display:grid;
   grid-template-columns:repeat(2, 1fr);
-  gap:10px;
+  gap:8px;
   width:100%;
-  margin-bottom:15px;
-}
-
-@media (max-width: 480px) {
-  .stats-container{
-    grid-template-columns:1fr;
-    gap:8px;
-  }
+  margin-bottom:12px;
 }
 
 .stat-card{
-  background:rgba(15,20,40,0.8);
-  backdrop-filter:blur(10px);
-  padding:15px;
-  border-radius:15px;
-  border:1px solid rgba(88, 179, 255, 0.15);
-  box-shadow:0 6px 20px rgba(0,0,0,0.4);
+  background:rgba(15,20,40,0.85);
+  backdrop-filter:blur(12px);
+  padding:12px;
+  border-radius:12px;
+  border:1px solid rgba(88, 179, 255, 0.2);
+  box-shadow:0 4px 15px rgba(0,0,0,0.5);
   text-align:center;
   transition:all 0.3s ease;
-  min-height:90px;
+  min-height:80px;
   display:flex;
   flex-direction:column;
   justify-content:center;
 }
 
-@media (max-width: 768px) {
-  .stat-card{
-    padding:12px;
-    min-height:80px;
-  }
-}
-
-.stat-card:hover{
-  transform:translateY(-3px);
-  box-shadow:0 12px 30px rgba(0,100,255,0.3);
-  border-color:rgba(88, 179, 255, 0.3);
-}
-
 .stat-label{
-  font-size:12px;
+  font-size:11px;
   color:#8bb9ff;
-  margin-bottom:6px;
+  margin-bottom:5px;
   text-transform:uppercase;
   letter-spacing:0.5px;
   font-weight:500;
 }
 
-@media (max-width: 768px) {
-  .stat-label{
-    font-size:11px;
-  }
-}
-
 .stat-value{
-  font-size:22px;
+  font-size:18px;
   font-weight:800;
   color:#fff;
   font-family:'Orbitron', sans-serif;
-  text-shadow:0 0 10px rgba(0,180,255,0.4);
+  text-shadow:0 0 8px rgba(0,180,255,0.5);
   background:linear-gradient(135deg, #00b4ff, #9d4edd);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   background-clip:text;
-  overflow:hidden;
-  text-overflow:ellipsis;
 }
 
-@media (max-width: 768px) {
-  .stat-value{
-    font-size:18px;
-  }
-}
-
-/* Основной игровой блок адаптив */
+/* Основной игровой блок */
 .main-game-area{
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:15px;
+  gap:12px;
   width:100%;
-  padding:20px;
-  background:rgba(10,15,30,0.6);
+  padding:16px;
+  background:rgba(10,15,30,0.7);
   backdrop-filter:blur(20px);
-  border-radius:20px;
-  border:1px solid rgba(88, 179, 255, 0.2);
-  box-shadow:0 10px 40px rgba(0,0,0,0.6),
-             inset 0 0 30px rgba(0,150,255,0.1);
-  margin-bottom:15px;
-}
-
-@media (max-width: 768px) {
-  .main-game-area{
-    padding:15px;
-    border-radius:25px;
-  }
+  border-radius:15px;
+  border:1px solid rgba(88, 179, 255, 0.25);
+  box-shadow:0 8px 30px rgba(0,0,0,0.7),
+             inset 0 0 20px rgba(0,150,255,0.1);
+  margin-bottom:12px;
 }
 
 .stellar-energy{
-  font-size:clamp(18px, 4vw, 28px);
+  font-size:clamp(16px, 3.5vw, 24px);
   font-weight:800;
   background:linear-gradient(135deg, #00b4ff, #9d4edd, #ff6b6b);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   background-clip:text;
-  text-shadow:0 3px 15px rgba(0,180,255,0.3);
+  text-shadow:0 2px 12px rgba(0,180,255,0.4);
   font-family:'Orbitron', sans-serif;
   letter-spacing:1px;
   text-align:center;
   margin:0;
-  padding:0 10px;
-  word-break:break-word;
+  padding:0 8px;
 }
 
 .nova-core-area{
   position:relative;
-  margin:15px 0;
+  margin:12px 0;
   width:100%;
   display:flex;
   justify-content:center;
 }
 
 .nova-core{
-  width:min(70vw, 300px);
-  height:min(70vw, 300px);
+  width:min(65vw, 250px);
+  height:min(65vw, 250px);
   border-radius:50%;
   background:radial-gradient(circle at 30% 30%, #00b4ff, #4a00e0);
   background-size:cover;
   background-position:center;
   cursor:pointer;
   transition:all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-  border:4px solid rgba(88, 179, 255, 0.4);
-  box-shadow:0 0 60px rgba(0,180,255,0.5),
-             inset 0 0 40px rgba(255,255,255,0.15);
-  position:relative;
+  border:3px solid rgba(88, 179, 255, 0.45);
+  box-shadow:0 0 50px rgba(0,180,255,0.6),
+             inset 0 0 30px rgba(255,255,255,0.2);
   animation:pulse-glow 4s infinite alternate;
-  touch-action:manipulation;
-  -webkit-touch-callout:none;
-}
-
-@media (max-width: 480px) {
-  .nova-core{
-    width:min(80vw, 250px);
-    height:min(80vw, 250px);
-  }
 }
 
 @keyframes pulse-glow{
-  0%{box-shadow:0 0 50px rgba(0,180,255,0.5), inset 0 0 30px rgba(255,255,255,0.15);}
-  100%{box-shadow:0 0 70px rgba(157,78,221,0.6), inset 0 0 50px rgba(255,255,255,0.2);}
+  0%{box-shadow:0 0 40px rgba(0,180,255,0.6), inset 0 0 25px rgba(255,255,255,0.2);}
+  100%{box-shadow:0 0 60px rgba(157,78,221,0.7), inset 0 0 40px rgba(255,255,255,0.25);}
 }
 
 .nova-core:active{
   transform:scale(0.95);
-  box-shadow:0 0 80px rgba(255,107,107,0.8),
-             inset 0 0 40px rgba(255,255,255,0.25);
 }
 
-/* Адаптивная игровая информация */
+/* Игровая информация */
 .game-info{
   display:grid;
   grid-template-columns:repeat(2, 1fr);
-  gap:10px;
+  gap:8px;
   width:100%;
-  margin-top:15px;
-}
-
-@media (max-width: 480px) {
-  .game-info{
-    grid-template-columns:1fr;
-    gap:8px;
-  }
+  margin-top:12px;
 }
 
 .info-item{
-  background:rgba(20,25,50,0.7);
-  padding:12px 15px;
-  border-radius:12px;
-  border:1px solid rgba(88, 179, 255, 0.15);
+  background:rgba(20,25,50,0.75);
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid rgba(88, 179, 255, 0.2);
   text-align:center;
-  min-height:70px;
+  min-height:60px;
   display:flex;
   flex-direction:column;
   justify-content:center;
 }
 
 .info-label{
-  font-size:12px;
+  font-size:11px;
   color:#a0c8ff;
-  margin-bottom:4px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-@media (max-width: 768px) {
-  .info-label{
-    font-size:11px;
-  }
+  margin-bottom:3px;
 }
 
 .info-value{
-  font-size:16px;
+  font-size:14px;
   font-weight:700;
   color:#00e0ff;
   font-family:'Orbitron', sans-serif;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  text-shadow:0 0 8px rgba(0,224,255,0.4);
 }
 
-@media (max-width: 768px) {
-  .info-value{
-    font-size:14px;
-  }
-}
-
-/* Адаптивная кнопка сингулярности */
+/* Кнопка сингулярности */
 .singularity-btn{
   background:linear-gradient(145deg, #9d4edd, #ff6b6b);
   color:white;
   border:none;
-  padding:15px 25px;
-  border-radius:18px;
-  font-size:clamp(14px, 3vw, 18px);
+  padding:12px 20px;
+  border-radius:15px;
+  font-size:clamp(13px, 2.8vw, 16px);
   font-weight:800;
   cursor:pointer;
-  margin:20px auto;
+  margin:16px auto;
   display:block;
-  transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:all 0.4s;
   font-family:'Orbitron', sans-serif;
   letter-spacing:1px;
   text-transform:uppercase;
-  box-shadow:0 10px 30px rgba(157,78,221,0.5);
-  border:2px solid rgba(255,255,255,0.2);
+  box-shadow:0 8px 25px rgba(157,78,221,0.6);
+  border:2px solid rgba(255,255,255,0.25);
   width:100%;
-  max-width:400px;
-  min-height:60px;
-  touch-action:manipulation;
-}
-
-@media (max-width: 768px) {
-  .singularity-btn{
-    padding:18px;
-    margin:15px auto;
-    font-size:16px;
-    border-radius:20px;
-  }
+  max-width:350px;
+  min-height:55px;
 }
 
 .singularity-btn:hover:not(:disabled){
-  transform:translateY(-3px) scale(1.02);
-  box-shadow:0 15px 40px rgba(157,78,221,0.7),
-             0 0 30px rgba(255,107,107,0.5);
+  transform:translateY(-2px);
+  box-shadow:0 12px 35px rgba(157,78,221,0.8);
 }
 
 .singularity-btn:disabled{
   opacity:0.5;
   cursor:not-allowed;
-  transform:none !important;
 }
 
-/* Адаптивные панели */
+/* Панели */
 .panel{
   position:fixed;
   top:-100%;
   left:0;
   width:100%;
   height:100vh;
-  height:100dvh;
   background:rgba(5,10,25,0.98);
-  backdrop-filter:blur(20px);
+  backdrop-filter:blur(25px);
   transition:top 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  padding:70px 15px 20px;
+  padding:60px 12px 16px;
   overflow-y:auto;
-  overflow-x:hidden;
   z-index:1000;
-  -webkit-overflow-scrolling:touch;
-  overscroll-behavior:contain;
-}
-
-@media (max-width: 768px) {
-  .panel{
-    padding:60px 10px 15px;
-  }
 }
 
 .panel.active{
@@ -405,87 +314,56 @@ body{
 
 .close-panel{
   position:fixed;
-  top:15px;
-  right:15px;
-  background:rgba(255,107,107,0.2);
+  top:12px;
+  right:12px;
+  background:rgba(255,107,107,0.25);
   border:none;
   color:#ff6b6b;
-  width:45px;
-  height:45px;
+  width:40px;
+  height:40px;
   border-radius:50%;
-  font-size:24px;
+  font-size:20px;
   cursor:pointer;
   transition:all 0.3s;
-  border:2px solid rgba(255,107,107,0.3);
+  border:2px solid rgba(255,107,107,0.4);
   z-index:1001;
   display:flex;
   align-items:center;
   justify-content:center;
-  touch-action:manipulation;
-}
-
-@media (max-width: 768px) {
-  .close-panel{
-    top:10px;
-    right:10px;
-    width:40px;
-    height:40px;
-    font-size:20px;
-  }
 }
 
 .panel-tabs{
   display:flex;
   flex-wrap:wrap;
-  gap:8px;
-  margin-bottom:20px;
-  padding-bottom:15px;
-  border-bottom:2px solid rgba(88, 179, 255, 0.2);
+  gap:6px;
+  margin-bottom:16px;
+  padding-bottom:12px;
+  border-bottom:2px solid rgba(88, 179, 255, 0.25);
   justify-content:center;
 }
 
-@media (max-width: 768px) {
-  .panel-tabs{
-    gap:6px;
-    margin-bottom:15px;
-  }
-}
-
 .tab{
-  background:rgba(40,50,100,0.8);
+  background:rgba(40,50,100,0.85);
   border:none;
   color:#a0c8ff;
-  padding:10px 16px;
-  border-radius:12px;
+  padding:8px 14px;
+  border-radius:10px;
   cursor:pointer;
-  font-size:13px;
+  font-size:12px;
   font-weight:600;
-  font-family:'Orbitron', sans-serif;
-  transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border:1px solid rgba(88, 179, 255, 0.2);
-  box-shadow:0 3px 10px rgba(0,0,0,0.4);
-  letter-spacing:0.5px;
-  min-width:120px;
+  transition:all 0.3s;
+  border:1px solid rgba(88, 179, 255, 0.25);
+  min-width:110px;
   text-align:center;
-  touch-action:manipulation;
   flex:1;
-  min-height:45px;
-}
-
-@media (max-width: 768px) {
-  .tab{
-    padding:8px 12px;
-    font-size:12px;
-    min-width:100px;
-    min-height:40px;
-  }
+  min-height:40px;
 }
 
 .tab.active{
   background:linear-gradient(145deg, #4a00e0, #8e2de2);
   color:#fff;
-  box-shadow:0 5px 20px rgba(74,0,224,0.5);
-  border-color:rgba(142,45,226,0.6);
+  box-shadow:0 4px 16px rgba(74,0,224,0.6);
+  border-color:rgba(142,45,226,0.7);
 }
 
 .tab-content{
@@ -496,111 +374,92 @@ body{
   display:block;
 }
 
-/* Адаптивная система прокачки */
+/* Система прокачки */
 .upgrades-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
-  gap:10px;
-  padding:15px;
-}
-
-@media (max-width: 480px) {
-  .upgrades-grid{
-    grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
-    gap:8px;
-    padding:10px;
-  }
+  grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));
+  gap:8px;
+  padding:12px;
+  max-height:500px;
+  overflow-y:auto;
 }
 
 .upgrade-btn{
-  background:linear-gradient(145deg, rgba(30,40,80,0.9), rgba(20,30,60,0.9));
-  border:2px solid rgba(88, 179, 255, 0.25);
-  border-radius:15px;
-  padding:15px;
+  background:linear-gradient(145deg, rgba(30,40,80,0.95), rgba(20,30,60,0.95));
+  border:2px solid rgba(88, 179, 255, 0.3);
+  border-radius:12px;
+  padding:12px;
   color:#b3d4ff;
   font-family:'Orbitron', sans-serif;
-  font-size:12px;
+  font-size:11px;
   font-weight:600;
   cursor:pointer;
-  transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow:0 5px 20px rgba(0,0,0,0.5);
+  transition:all 0.3s;
+  box-shadow:0 4px 15px rgba(0,0,0,0.5);
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:6px;
-  min-height:110px;
-  touch-action:manipulation;
+  gap:5px;
+  min-height:95px;
 }
 
-@media (max-width: 768px) {
-  .upgrade-btn{
-    padding:12px;
-    min-height:100px;
-  }
+.upgrade-btn:hover:not(:disabled){
+  transform:translateY(-2px);
+  border-color:rgba(88, 179, 255, 0.5);
+}
+
+.upgrade-btn:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
 }
 
 .upgrade-value{
-  font-size:18px;
+  font-size:16px;
   font-weight:800;
   color:#00e0ff;
-  text-shadow:0 0 10px rgba(0,224,255,0.4);
-}
-
-@media (max-width: 768px) {
-  .upgrade-value{
-    font-size:16px;
-  }
+  text-shadow:0 0 8px rgba(0,224,255,0.5);
 }
 
 .upgrade-price{
-  font-size:11px;
+  font-size:10px;
   color:#ffd166;
-  background:rgba(0,0,0,0.3);
-  padding:4px 10px;
-  border-radius:15px;
-  border:1px solid rgba(255,209,102,0.3);
+  background:rgba(0,0,0,0.4);
+  padding:3px 8px;
+  border-radius:12px;
+  border:1px solid rgba(255,209,102,0.4);
   text-align:center;
   width:100%;
 }
 
 .upgrade-name{
-  font-size:10px;
-  opacity:0.8;
+  font-size:9px;
+  opacity:0.9;
   text-align:center;
   line-height:1.2;
 }
 
-/* Адаптивный магазин */
+/* Магазин */
 .shop-tabs{
   display:flex;
-  gap:8px;
-  margin-bottom:20px;
+  gap:6px;
+  margin-bottom:16px;
   justify-content:center;
   flex-wrap:wrap;
 }
 
 .shop-tab{
-  background:rgba(40,30,80,0.8);
+  background:rgba(40,30,80,0.85);
   border:none;
   color:#d1a5ff;
-  padding:10px 20px;
-  border-radius:12px;
+  padding:8px 16px;
+  border-radius:10px;
   cursor:pointer;
-  font-size:13px;
+  font-size:12px;
   font-weight:600;
   transition:all 0.3s;
-  border:2px solid rgba(157,78,221,0.3);
-  min-width:140px;
+  border:2px solid rgba(157,78,221,0.35);
+  min-width:130px;
   text-align:center;
-  touch-action:manipulation;
-}
-
-@media (max-width: 768px) {
-  .shop-tab{
-    padding:8px 15px;
-    font-size:12px;
-    min-width:120px;
-  }
 }
 
 .shop-tab.active{
@@ -611,377 +470,321 @@ body{
 
 .shop-container{
   display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
-  gap:12px;
-  padding:15px;
+  grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));
+  gap:10px;
+  padding:12px;
+  max-height:500px;
+  overflow-y:auto;
 }
 
-@media (max-width: 480px) {
-  .shop-container{
-    grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
-    gap:10px;
-    padding:10px;
-  }
-}
-
-/* Адаптивные карточки скинов */
 .skin-card{
-  background:linear-gradient(145deg, rgba(25,20,50,0.9), rgba(15,10,30,0.9));
-  border-radius:15px;
+  background:linear-gradient(145deg, rgba(25,20,50,0.95), rgba(15,10,30,0.95));
+  border-radius:12px;
   overflow:hidden;
-  transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border:2px solid rgba(157,78,221,0.3);
-  box-shadow:0 5px 20px rgba(0,0,0,0.5);
+  transition:all 0.3s;
+  border:2px solid rgba(157,78,221,0.35);
+  box-shadow:0 4px 15px rgba(0,0,0,0.5);
   position:relative;
   cursor:pointer;
-  min-height:180px;
-  touch-action:manipulation;
+  min-height:160px;
 }
 
-@media (max-width: 768px) {
-  .skin-card{
-    min-height:160px;
-  }
+.skin-card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(157,78,221,0.6);
 }
 
 .skin-image{
   width:100%;
-  height:100px;
+  height:85px;
   object-fit:cover;
-  border-bottom:2px solid rgba(157,78,221,0.3);
-}
-
-@media (max-width: 768px) {
-  .skin-image{
-    height:90px;
-  }
+  border-bottom:2px solid rgba(157,78,221,0.35);
 }
 
 .skin-info{
-  padding:10px;
+  padding:8px;
   text-align:center;
 }
 
 .skin-name{
-  font-size:12px;
+  font-size:11px;
   font-weight:600;
   color:#e0c3ff;
-  margin-bottom:8px;
-  min-height:32px;
+  margin-bottom:6px;
+  min-height:28px;
   display:flex;
   align-items:center;
   justify-content:center;
   line-height:1.2;
-  overflow:hidden;
-  display:-webkit-box;
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
-}
-
-@media (max-width: 768px) {
-  .skin-name{
-    font-size:11px;
-    min-height:28px;
-  }
 }
 
 .skin-price{
-  font-size:13px;
+  font-size:12px;
   font-weight:bold;
   color:#ffd166;
-  background:rgba(0,0,0,0.4);
-  padding:5px 12px;
-  border-radius:15px;
+  background:rgba(0,0,0,0.5);
+  padding:4px 10px;
+  border-radius:12px;
   display:inline-block;
-  border:1px solid rgba(255,209,102,0.3);
+  border:1px solid rgba(255,209,102,0.4);
 }
 
 .skin-owned-badge{
   position:absolute;
-  top:8px;
-  right:8px;
+  top:6px;
+  right:6px;
   background:#4caf50;
   color:white;
-  padding:4px 8px;
-  border-radius:12px;
-  font-size:11px;
+  padding:3px 6px;
+  border-radius:10px;
+  font-size:10px;
   font-weight:bold;
   z-index:2;
 }
 
-/* Меню адаптив */
+/* Ачивки */
+.achievements-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(170px, 1fr));
+  gap:10px;
+  padding:12px;
+  max-height:500px;
+  overflow-y:auto;
+}
+
+.achievement-card{
+  background:linear-gradient(145deg, rgba(30,25,60,0.95), rgba(20,15,40,0.95));
+  border-radius:12px;
+  padding:12px;
+  border:2px solid rgba(255,193,7,0.35);
+  box-shadow:0 4px 15px rgba(0,0,0,0.5);
+  text-align:center;
+  transition:all 0.3s;
+  position:relative;
+  overflow:hidden;
+}
+
+.achievement-card.unlocked{
+  border-color:#ffc107;
+  background:linear-gradient(145deg, rgba(40,35,80,0.95), rgba(30,25,60,0.95));
+  animation:achievementUnlock 0.5s ease;
+}
+
+@keyframes achievementUnlock {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.achievement-icon{
+  font-size:28px;
+  margin-bottom:8px;
+  color:#ffc107;
+}
+
+.achievement-name{
+  font-size:13px;
+  font-weight:600;
+  color:#ffd166;
+  margin-bottom:6px;
+}
+
+.achievement-desc{
+  font-size:10px;
+  color:#b3a8ff;
+  margin-bottom:8px;
+  line-height:1.3;
+}
+
+.achievement-reward{
+  font-size:11px;
+  color:#81c784;
+  font-weight:bold;
+  background:rgba(27,50,43,0.6);
+  padding:4px 8px;
+  border-radius:8px;
+  display:inline-block;
+}
+
+.achievement-progress{
+  width:100%;
+  height:5px;
+  background:rgba(255,255,255,0.1);
+  border-radius:3px;
+  margin-top:8px;
+  overflow:hidden;
+}
+
+.achievement-progress-bar{
+  height:100%;
+  background:linear-gradient(90deg, #4caf50, #81c784);
+  border-radius:3px;
+  transition:width 0.5s;
+}
+
+/* Анимация уведомления об ачивке */
+.achievement-notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100px);
+  background: linear-gradient(145deg, rgba(255,193,7,0.95), rgba(255,152,0,0.95));
+  color: white;
+  padding: 15px 25px;
+  border-radius: 15px;
+  font-weight: bold;
+  font-size: 16px;
+  z-index: 9999;
+  box-shadow: 0 10px 30px rgba(255,193,7,0.6);
+  border: 2px solid rgba(255,255,255,0.3);
+  text-align: center;
+  min-width: 300px;
+  animation: slideDown 3s ease forwards;
+}
+
+@keyframes slideDown {
+  0% { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+  15% { transform: translateX(-50%) translateY(20px); opacity: 1; }
+  85% { transform: translateX(-50%) translateY(20px); opacity: 1; }
+  100% { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+}
+
+/* Меню */
 .menu-content{
-  max-width:600px;
+  max-width:550px;
   margin:0 auto;
-  padding:20px;
+  padding:16px;
   text-align:center;
 }
 
-@media (max-width: 768px) {
-  .menu-content{
-    padding:15px;
-  }
-}
-
 .creator-signature{
-  font-size:clamp(24px, 5vw, 36px);
+  font-size:clamp(20px, 4.5vw, 32px);
   font-weight:900;
   background:linear-gradient(135deg, #00b4ff, #9d4edd, #ff6b6b);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   background-clip:text;
-  margin-bottom:30px;
-  text-shadow:0 0 20px rgba(0,180,255,0.3);
+  margin-bottom:25px;
+  text-shadow:0 0 15px rgba(0,180,255,0.4);
   line-height:1.2;
 }
 
 .code-input-container{
-  background:rgba(25,35,70,0.8);
-  padding:20px;
-  border-radius:20px;
-  border:2px solid rgba(88, 179, 255, 0.3);
-  margin:30px 0;
-  box-shadow:0 10px 30px rgba(0,0,0,0.6);
-}
-
-@media (max-width: 768px) {
-  .code-input-container{
-    padding:15px;
-    margin:20px 0;
-  }
+  background:rgba(25,35,70,0.85);
+  padding:16px;
+  border-radius:16px;
+  border:2px solid rgba(88, 179, 255, 0.35);
+  margin:25px 0;
+  box-shadow:0 8px 25px rgba(0,0,0,0.6);
 }
 
 .stellar-code-input{
   width:100%;
-  padding:15px;
-  margin-bottom:15px;
+  padding:12px;
+  margin-bottom:12px;
   background:rgba(10,20,40,0.9);
   border:2px solid #00b4ff;
-  border-radius:12px;
+  border-radius:10px;
   color:white;
-  font-size:16px;
+  font-size:14px;
   font-family:'Orbitron', sans-serif;
   text-align:center;
   letter-spacing:1px;
-  transition:all 0.3s;
-  min-height:50px;
-}
-
-@media (max-width: 768px) {
-  .stellar-code-input{
-    padding:12px;
-    font-size:14px;
-    min-height:45px;
-  }
+  min-height:45px;
 }
 
 .stellar-activate-btn{
   width:100%;
-  padding:16px;
+  padding:14px;
   background:linear-gradient(145deg, #00b4ff, #4a00e0);
   color:white;
   border:none;
-  border-radius:12px;
+  border-radius:10px;
   font-weight:800;
-  font-size:16px;
+  font-size:14px;
   cursor:pointer;
   transition:all 0.4s;
   font-family:'Orbitron', sans-serif;
   letter-spacing:1px;
   text-transform:uppercase;
-  min-height:55px;
-  touch-action:manipulation;
+  min-height:50px;
 }
 
-@media (max-width: 768px) {
-  .stellar-activate-btn{
-    padding:14px;
-    font-size:15px;
-    min-height:50px;
-  }
+.stellar-activate-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 25px rgba(0,180,255,0.5);
 }
 
 .discord-link{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  gap:12px;
+  gap:10px;
   background:linear-gradient(145deg, #5865F2, #4752c4);
   color:white;
-  padding:16px 30px;
-  border-radius:18px;
+  padding:14px 25px;
+  border-radius:15px;
   text-decoration:none;
   font-weight:800;
-  font-size:16px;
-  margin-top:25px;
+  font-size:14px;
+  margin-top:20px;
   transition:all 0.4s;
   width:100%;
-  max-width:400px;
-  touch-action:manipulation;
+  max-width:350px;
 }
 
-@media (max-width: 768px) {
-  .discord-link{
-    padding:14px 20px;
-    font-size:15px;
-    margin-top:20px;
-  }
+.discord-link:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 30px rgba(88,101,242,0.5);
 }
 
-/* Эффекты для мобильных */
+/* Эффекты кликов */
 .quantum-flare{
   position:absolute;
   font-weight:800;
-  font-size:20px;
-  animation:quantum-float 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  font-size:16px;
+  animation:quantum-float 1s ease forwards;
   pointer-events:none;
-  text-shadow:0 0 20px currentColor;
+  text-shadow:0 0 15px currentColor;
   font-family:'Orbitron', sans-serif;
   z-index:100;
 }
 
 @keyframes quantum-float{
-  0%{opacity:1;transform:translateY(0) scale(1) rotate(0deg);}
-  100%{opacity:0;transform:translateY(-60px) scale(0.8) rotate(0deg);}
+  0%{opacity:1;transform:translateY(0) scale(1);}
+  100%{opacity:0;transform:translateY(-50px) scale(0.7);}
 }
 
-/* Улучшения для маленьких экранов */
-@media (max-width: 360px) {
-  .stats-container{
-    grid-template-columns:1fr;
+/* Адаптивность */
+@media (max-width: 768px) {
+  .upgrades-grid,
+  .shop-container,
+  .achievements-grid{
+    grid-template-columns:repeat(auto-fill, minmax(130px, 1fr));
+    max-height:400px;
   }
   
-  .game-info{
-    grid-template-columns:1fr;
-  }
-  
-  .panel-tabs{
-    flex-direction:column;
-  }
-  
-  .tab{
-    width:100%;
-  }
-  
-  .shop-tabs{
-    flex-direction:column;
-  }
-  
-  .shop-tab{
-    width:100%;
-  }
-}
-
-/* Предотвращение масштабирования на iOS */
-@media (max-device-width: 1024px) {
-  body{
-    -webkit-text-size-adjust:100%;
-  }
-  
-  input, textarea, select{
-    font-size:16px !important;
-  }
-}
-
-/* Оптимизация для высоких экранов */
-@media (min-height: 800px) and (max-width: 768px) {
-  .nova-core{
-    width:min(60vw, 250px);
-    height:min(60vw, 250px);
-  }
-}
-
-/* Улучшение видимости на солнце */
-@media (prefers-color-scheme: light) {
-  .stat-card, .info-item, .upgrade-btn, .skin-card{
-    border-color:rgba(0,0,0,0.2);
-  }
-}
-
-/* Анимация загрузки */
-.loading-spinner{
-  display:none;
-  position:fixed;
-  top:50%;
-  left:50%;
-  transform:translate(-50%, -50%);
-  z-index:9999;
-}
-
-/* Улучшение доступности */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* Портретная ориентация */
-@media (orientation: portrait) {
-  .main-game-area{
-    padding:15px;
-  }
-  
-  .nova-core{
-    width:min(65vw, 280px);
-    height:min(65vw, 280px);
-  }
-}
-
-/* Ландшафтная ориентация */
-@media (orientation: landscape) and (max-height: 600px) {
-  .top-bar{
-    padding:8px;
-    margin-bottom:10px;
-  }
-  
-  .stats-container{
-    grid-template-columns:repeat(4, 1fr);
-    gap:8px;
-    margin-bottom:10px;
-  }
-  
-  .stat-card{
-    min-height:70px;
-    padding:10px;
-  }
-  
-  .stat-value{
-    font-size:16px;
-  }
-  
-  .nova-core{
-    width:min(40vh, 200px);
-    height:min(40vh, 200px);
-  }
-  
-  .game-info{
-    grid-template-columns:repeat(4, 1fr);
-    gap:8px;
-  }
-  
-  .info-item{
-    min-height:60px;
-    padding:8px 10px;
-  }
-  
-  .info-value{
-    font-size:14px;
+  .sound-toggle {
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
   }
 }
 </style>
 </head>
 <body>
 
+<button class="sound-toggle" id="soundToggle" onclick="toggleMusic()">♪</button>
+
 <div class="game-container">
-  <!-- Верхняя панель -->
   <div class="top-bar">
     <button class="astro-btn" onclick="toggleStellarMenu()">☰ СТАНЦИЯ</button>
     <button class="astro-btn" onclick="toggleQuantumUpgrades()">▲ МОДЕРНИЗАЦИЯ</button>
+    <button class="astro-btn" onclick="toggleAchievements()">🏆 АЧИВКИ</button>
   </div>
 
-  <!-- Статистика -->
   <div class="stats-container">
     <div class="stat-card">
       <div class="stat-label">ЭНЕРГИЯ</div>
@@ -996,12 +799,11 @@ body{
       <div class="stat-value" id="singularityMulti">×1</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">БОНУС СКИНОВ</div>
-      <div class="stat-value" id="skinBonusDisplay">×1.00</div>
+      <div class="stat-label">БОНУС АЧИВОК</div>
+      <div class="stat-value" id="achievementsBonusDisplay">×1.00</div>
     </div>
   </div>
 
-  <!-- Основной игровой блок -->
   <div class="main-game-area">
     <div class="stellar-energy">ЭНЕРГИЯ: <span id="energyDisplay">0</span></div>
     
@@ -1034,32 +836,27 @@ body{
   </div>
 </div>
 
-<!-- Панель меню -->
+<!-- Меню -->
 <div class="panel" id="stellarMenu">
   <button class="close-panel" onclick="toggleStellarMenu()">×</button>
   <div class="menu-content">
     <div class="creator-signature">REFORMOTI СИСТЕМЫ</div>
-    
     <div class="code-input-container">
-      <input type="text" class="stellar-code-input" id="stellarCode" placeholder="КОСМИЧЕСКИЙ КОД" inputmode="numeric">
+      <input type="text" class="stellar-code-input" id="stellarCode" placeholder="ВВЕДИТЕ СЕКРЕТНЫЙ КОД">
       <button class="stellar-activate-btn" onclick="activateStellarCode()">АКТИВИРОВАТЬ</button>
-      <div class="stellar-message" id="stellarMessage"></div>
+      <div id="stellarMessage"></div>
     </div>
-    
-    <a href="https://discord.gg/8d2RQHvGhH" target="_blank" class="discord-link">
-      <span>🛸</span> DISCORD
-    </a>
+    <a href="https://discord.gg/8d2RQHvGhH" target="_blank" class="discord-link">🛸 DISCORD</a>
   </div>
 </div>
 
-<!-- Панель модернизации -->
+<!-- Модернизации -->
 <div class="panel" id="quantumUpgrades">
   <button class="close-panel" onclick="toggleQuantumUpgrades()">×</button>
-  
   <div class="panel-tabs">
-    <button class="tab active" onclick="openTab('clickTab',this)">⚡ ЯДРО</button>
-    <button class="tab" onclick="openTab('autoTab',this)">🌀 АВТО</button>
-    <button class="tab" onclick="openTab('multiTab',this)">♾️ МНОЖ</button>
+    <button class="tab active" onclick="openTab('clickTab',this)">⚡ ЯДРО (30)</button>
+    <button class="tab" onclick="openTab('autoTab',this)">🌀 АВТО (30)</button>
+    <button class="tab" onclick="openTab('multiTab',this)">♾️ МНОЖ (15)</button>
     <button class="tab" onclick="openTab('shopTab',this)">🛒 МАГАЗИН</button>
   </div>
 
@@ -1077,22 +874,40 @@ body{
   
   <div id="shopTab" class="tab-content">
     <div class="shop-tabs">
-      <button class="shop-tab active" onclick="openShopTab('skinsTab',this)">🌌 СКИНЫ</button>
-      <button class="shop-tab" onclick="openShopTab('backgroundsTab',this)">✨ ФОНЫ</button>
+      <button class="shop-tab active" onclick="openShopTab('skinsTab',this)">🌌 СКИНЫ (25)</button>
+      <button class="shop-tab" onclick="openShopTab('backgroundsTab',this)">✨ ФОНЫ (12)</button>
     </div>
-    
     <div id="skinsTab" class="shop-tab-content active">
       <div class="shop-container" id="skinsGrid"></div>
     </div>
-    
     <div id="backgroundsTab" class="shop-tab-content">
       <div class="shop-container" id="backgroundsGrid"></div>
     </div>
   </div>
 </div>
 
+<!-- Ачивки -->
+<div class="panel" id="achievementsPanel">
+  <button class="close-panel" onclick="toggleAchievements()">×</button>
+  <div style="text-align:center; margin-bottom:25px;">
+    <div style="font-size:24px; font-weight:800; background:linear-gradient(135deg, #ffc107, #ff9800); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px;">🏆 ДОСТИЖЕНИЯ</div>
+    <div style="color:#a0c8ff; font-size:13px;">Открывайте достижения и получайте бонусы!</div>
+    <div style="margin-top:16px; display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+      <div style="background:rgba(255,193,7,0.1); padding:8px 16px; border-radius:12px; border:1px solid rgba(255,193,7,0.3);">
+        <div style="font-size:11px; color:#ffd166;">ОТКРЫТО</div>
+        <div style="font-size:20px; font-weight:bold; color:#ffc107;" id="achievementsUnlocked">0/25</div>
+      </div>
+      <div style="background:rgba(0,180,255,0.1); padding:8px 16px; border-radius:12px; border:1px solid rgba(0,180,255,0.3);">
+        <div style="font-size:11px; color:#8bb9ff;">БОНУС</div>
+        <div style="font-size:20px; font-weight:bold; color:#00b4ff;" id="achievementsBonus">×1.00</div>
+      </div>
+    </div>
+  </div>
+  <div class="achievements-grid" id="achievementsGrid"></div>
+</div>
+
 <script>
-// === КОСМИЧЕСКИЕ ПЕРЕМЕННЫЕ ===
+// === ОСНОВНЫЕ ПЕРЕМЕННЫЕ ===
 let stellarEnergy = 0;
 let corePower = 1;
 let autoHarvest = 0;
@@ -1101,223 +916,607 @@ let quantumGeneration = 0;
 let singularityMulti = 1;
 let skinBonusMulti = 1;
 let stellarCodeUsed = false;
-let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+let totalClicks = 0;
+let totalAutoEarned = 0;
+let totalTimePlayed = 0;
+let highestEnergy = 0;
+let skinsPurchased = 0;
+let backgroundsPurchased = 0;
+let consecutiveClicks = 0;
+let lastClickTime = 0;
+let musicEnabled = true;
+let audioContext;
+let backgroundMusic;
 
-// Мобильная оптимизация
-if (isMobile) {
-  document.body.style.fontSize = '14px';
+// Система звука
+function initAudio() {
+  try {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    
+    // Создаем простую фоновую музыку (космическая атмосфера)
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(220, audioContext.currentTime);
+    
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+    
+    backgroundMusic = { oscillator, gainNode };
+    
+    if (musicEnabled) {
+      oscillator.start();
+    }
+    
+  } catch (e) {
+    console.log('Аудио не поддерживается');
+  }
 }
 
-// ОРИГИНАЛЬНЫЕ МАССИВЫ ПРОКАЧКИ
+function toggleMusic() {
+  musicEnabled = !musicEnabled;
+  const btn = document.getElementById('soundToggle');
+  
+  if (musicEnabled) {
+    btn.innerHTML = '♪';
+    btn.style.color = '#8bb9ff';
+    if (backgroundMusic && audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+  } else {
+    btn.innerHTML = '🔇';
+    btn.style.color = '#ff6b6b';
+    if (backgroundMusic && audioContext.state === 'running') {
+      audioContext.suspend();
+    }
+  }
+}
+
+// УСЛОЖНЕННАЯ СИСТЕМА
+let rebirthCost = 50000000; // Увеличенная начальная стоимость
+let rebirthIncrease = 3.5; // Усиленное увеличение после ребитха
+
+// РАСШИРЕННЫЕ УЛУЧШЕНИЯ ДЛЯ ЯДРА (30 уровней)
 const clickUpgrades = [
-  {power:1, price:20, name:"Базовый импульс"},
-  {power:5, price:100, name:"Протонный всплеск"},
-  {power:10, price:200, name:"Нейтронная волна"},
-  {power:25, price:500, name:"Плазменный выброс"},
-  {power:50, price:1000, name:"Гравитационный удар"},
-  {power:100, price:2000, name:"Сингулярный взрыв"},
-  {power:1200, price:24000, name:"Чёрная дыра"},
-  {power:4500, price:90000, name:"Квазар"},
-  {power:8494, price:169880, name:"Галактический кластер"},
-  {power:24000, price:480000, name:"Тёмная материя"},
-  {power:70000, price:1400000, name:"Космическая струна"},
-  {power:1000000, price:20000000, name:"Большой взрыв"}
+  {id: 'basic', power:2, basePrice:50, name:"Базовый импульс", count:0},
+  {id: 'proton', power:8, basePrice:250, name:"Протонный всплеск", count:0},
+  {id: 'neutron', power:15, basePrice:500, name:"Нейтронная волна", count:0},
+  {id: 'plasma', power:35, basePrice:1250, name:"Плазменный выброс", count:0},
+  {id: 'gravity', power:75, basePrice:2500, name:"Гравитационный удар", count:0},
+  {id: 'singular', power:150, basePrice:5000, name:"Сингулярный взрыв", count:0},
+  {id: 'blackhole', power:300, basePrice:10000, name:"Чёрная дыра", count:0},
+  {id: 'quasar', power:600, basePrice:20000, name:"Квазар", count:0},
+  {id: 'cluster', power:1200, basePrice:40000, name:"Галактический кластер", count:0},
+  {id: 'darkmatter', power:2500, basePrice:80000, name:"Тёмная материя", count:0},
+  {id: 'string', power:5000, basePrice:160000, name:"Космическая струна", count:0},
+  {id: 'bigbang', power:10000, basePrice:320000, name:"Большой взрыв", count:0},
+  {id: 'multiverse1', power:20000, basePrice:640000, name:"Мультивселенная I", count:0},
+  {id: 'multiverse2', power:40000, basePrice:1280000, name:"Мультивселенная II", count:0},
+  {id: 'godpower1', power:80000, basePrice:2560000, name:"Божественная мощь I", count:0},
+  {id: 'godpower2', power:160000, basePrice:5120000, name:"Божественная мощь II", count:0},
+  {id: 'cosmic1', power:320000, basePrice:10240000, name:"Космическая сила I", count:0},
+  {id: 'cosmic2', power:640000, basePrice:20480000, name:"Космическая сила II", count:0},
+  {id: 'infinity1', power:1280000, basePrice:40960000, name:"Бесконечность I", count:0},
+  {id: 'infinity2', power:2560000, basePrice:81920000, name:"Бесконечность II", count:0},
+  {id: 'absolute1', power:5120000, basePrice:163840000, name:"Абсолют I", count:0},
+  {id: 'absolute2', power:10240000, basePrice:327680000, name:"Абсолют II", count:0},
+  {id: 'ultimate1', power:20480000, basePrice:655360000, name:"Абсолютная сила I", count:0},
+  {id: 'ultimate2', power:40960000, basePrice:1310720000, name:"Абсолютная сила II", count:0},
+  {id: 'supreme1', power:81920000, basePrice:2621440000, name:"Верховная мощь I", count:0},
+  {id: 'supreme2', power:163840000, basePrice:5242880000, name:"Верховная мощь II", count:0},
+  {id: 'divine1', power:327680000, basePrice:10485760000, name:"Божественный свет I", count:0},
+  {id: 'divine2', power:655360000, basePrice:20971520000, name:"Божественный свет II", count:0},
+  {id: 'eternal1', power:1310720000, basePrice:41943040000, name:"Вечность I", count:0},
+  {id: 'eternal2', power:2621440000, basePrice:83886080000, name:"Вечность II", count:0}
 ];
 
+// РАСШИРЕННЫЕ УЛУЧШЕНИЯ ДЛЯ АВТО-СБОРА (30 уровней)
 const autoUpgrades = [
-  {power:1, price:30, name:"Солнечный парус"},
-  {power:5, price:150, name:"Ионный двигатель"},
-  {power:10, price:300, name:"Варп-двигатель"},
-  {power:20, price:600, name:"Квантовый двигатель"},
-  {power:25, price:750, name:"Гравитационный парус"},
-  {power:35, price:1050, name:"Термоядерный реактор"},
-  {power:50, price:1500, name:"Звёздный двигатель"},
-  {power:80, price:2400, name:"Червоточина"},
-  {power:230, price:6900, name:"Гипердвигатель"},
-  {power:900, price:27000, name:"Пространственный скачок"},
-  {power:2300, price:69000, name:"Временная петля"},
-  {power:9000, price:270000, name:"Космический портал"},
-  {power:14000, price:420000, name:"Мультиверсальный мост"},
-  {power:40900, price:1227000, name:"Сингулярный двигатель"},
-  {power:100000, price:3000000, name:"Абсолютный двигатель"}
+  {id: 'solar', power:2, basePrice:75, name:"Солнечный парус", count:0},
+  {id: 'ion', power:5, basePrice:375, name:"Ионный двигатель", count:0},
+  {id: 'warp', power:10, basePrice:750, name:"Варп-двигатель", count:0},
+  {id: 'quantum', power:20, basePrice:1500, name:"Квантовый двигатель", count:0},
+  {id: 'gravitysail', power:30, basePrice:3000, name:"Гравитационный парус", count:0},
+  {id: 'thermo', power:50, basePrice:6000, name:"Термоядерный реактор", count:0},
+  {id: 'star', power:80, basePrice:12000, name:"Звёздный двигатель", count:0},
+  {id: 'wormhole', power:120, basePrice:24000, name:"Червоточина", count:0},
+  {id: 'hyper', power:180, basePrice:48000, name:"Гипердвигатель", count:0},
+  {id: 'jump', power:300, basePrice:96000, name:"Пространственный скачок", count:0},
+  {id: 'timeloop', power:500, basePrice:192000, name:"Временная петля", count:0},
+  {id: 'portal', power:800, basePrice:384000, name:"Космический портал", count:0},
+  {id: 'multiverse', power:1200, basePrice:768000, name:"Мультиверсальный мост", count:0},
+  {id: 'singular', power:2000, basePrice:1536000, name:"Сингулярный двигатель", count:0},
+  {id: 'absolute', power:3000, basePrice:3072000, name:"Абсолютный двигатель", count:0},
+  {id: 'infinity', power:5000, basePrice:6144000, name:"Двигатель Бесконечности", count:0},
+  {id: 'cosmic1', power:8000, basePrice:12288000, name:"Космический мотор I", count:0},
+  {id: 'cosmic2', power:12000, basePrice:24576000, name:"Космический мотор II", count:0},
+  {id: 'galactic1', power:20000, basePrice:49152000, name:"Галактический привод I", count:0},
+  {id: 'galactic2', power:30000, basePrice:98304000, name:"Галактический привод II", count:0},
+  {id: 'universal1', power:50000, basePrice:196608000, name:"Универсальный двигатель I", count:0},
+  {id: 'universal2', power:80000, basePrice:393216000, name:"Универсальный двигатель II", count:0},
+  {id: 'omni1', power:120000, basePrice:786432000, name:"Всемогущий мотор I", count:0},
+  {id: 'omni2', power:200000, basePrice:1572864000, name:"Всемогущий мотор II", count:0},
+  {id: 'godly1', power:300000, basePrice:3145728000, name:"Божественный двигатель I", count:0},
+  {id: 'godly2', power:500000, basePrice:6291456000, name:"Божественный двигатель II", count:0},
+  {id: 'eternal1', power:800000, basePrice:12582912000, name:"Вечный двигатель I", count:0},
+  {id: 'eternal2', power:1200000, basePrice:25165824000, name:"Вечный двигатель II", count:0},
+  {id: 'ultimate1', power:2000000, basePrice:50331648000, name:"Абсолютный мотор I", count:0},
+  {id: 'ultimate2', power:3000000, basePrice:100663296000, name:"Абсолютный мотор II", count:0}
 ];
 
-// МНОЖИТЕЛИ
+// МНОЖИТЕЛИ (15 уровней)
 const multiplierUpgrades = [
-  {value:1.2, price:1000, name:"×1.2 Сингулярность"},
-  {value:2, price:5000, name:"×2 Сингулярность"},
-  {value:5, price:25000, name:"×5 Сингулярность"},
-  {value:20, price:100000, name:"×20 Сингулярность"},
-  {value:100, price:500000, name:"×100 Сингулярность"}
+  {id: 'multi1', value:1.15, basePrice:5000, name:"×1.15 Множитель", count:0},
+  {id: 'multi2', value:1.25, basePrice:15000, name:"×1.25 Множитель", count:0},
+  {id: 'multi3', value:1.4, basePrice:45000, name:"×1.4 Множитель", count:0},
+  {id: 'multi4', value:1.6, basePrice:135000, name:"×1.6 Множитель", count:0},
+  {id: 'multi5', value:1.85, basePrice:405000, name:"×1.85 Множитель", count:0},
+  {id: 'multi6', value:2.2, basePrice:1215000, name:"×2.2 Множитель", count:0},
+  {id: 'multi7', value:2.6, basePrice:3645000, name:"×2.6 Множитель", count:0},
+  {id: 'multi8', value:3.1, basePrice:10935000, name:"×3.1 Множитель", count:0},
+  {id: 'multi9', value:3.7, basePrice:32805000, name:"×3.7 Множитель", count:0},
+  {id: 'multi10', value:4.5, basePrice:98415000, name:"×4.5 Множитель", count:0},
+  {id: 'multi11', value:5.5, basePrice:295245000, name:"×5.5 Множитель", count:0},
+  {id: 'multi12', value:6.8, basePrice:885735000, name:"×6.8 Множитель", count:0},
+  {id: 'multi13', value:8.5, basePrice:2657205000, name:"×8.5 Множитель", count:0},
+  {id: 'multi14', value:10.5, basePrice:7971615000, name:"×10.5 Множитель", count:0},
+  {id: 'multi15', value:13, basePrice:23914845000, name:"×13 Множитель", count:0}
 ];
-let purchasedMultipliers = new Set();
 
-// СКИНЫ И ФОНЫ
+// РАСШИРЕННЫЕ СКИНЫ (25 штук)
 const skins = [
-  {name:'Туманность Андромеды',price:500,url:'https://wallpaper.forfun.com/fetch/8d/8dbdaf8bd40e873ddb331cad3c246db3.jpeg'},
-  {name:'Облако Сингулярности',price:1200,url:'https://media.istockphoto.com/id/1498666644/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%BE%D0%B1%D0%BB%D0%B0%D0%BA%D0%B0-%D1%87%D0%B5%D1%80%D0%BD%D0%BE%D0%B9-%D0%B4%D1%8B%D1%80%D1%8B-%D0%B2%D1%8B%D1%81%D0%BE%D0%BA%D0%BE%D0%BA%D0%B0%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B8%D0%BD%D0%B3.jpg?s=612x612&w=0&k=20&c=eDy_UIZjpbHlTQB5ub-WOapfMPEQMiVrUBSRptuR8eA='},
-  {name:'Квантовый Разлом',price:2500,url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0TgYQy6Kacnqz2eG4Kzpb5s3Ih73QeAYi8Q&s'},
-  {name:'Эхо Вселенной',price:4000,url:'https://images.steamusercontent.com/ugc/1675869057985981771/EC21624F70B718E5406F4748BD3DFC1EE4309CB7/?imw=512&imh=512&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true'},
-  {name:'Череп Пустоты',price:8000,url:'https://img.freepik.com/premium-vector/illustration-white-skull-black-background-skull-tattoos-illustration-scarf_15870-787.jpg'},
-  {name:'Крик Бездны',price:12000,url:'https://img.freepik.com/premium-vector/screaming-skull-vector-black-background_248052-86.jpg'},
-  {name:'Тетрадь Смерти',price:20000,url:'https://img.goodfon.ru/wallpaper/big/c/e3/death-note-tetrad-smerti-2436.webp'},
-  {name:'Астральный Символ',price:35000,url:'https://i.pinimg.com/736x/b9/30/ba/b930ba00009244ce23891e5c42e699e9.jpg'},
-  {name:'Галактический Разряд',price:80000,url:'https://klike.net/uploads/posts/2022-07/1657778940_37.jpg'},
-  {name:'Молниеносный Импульс',price:100000,url:'https://zefirka.club/uploads/posts/2023-01/thumbs/1673691446_24-zefirka-club-p-molniya-makvin-na-avu-35.jpg'}
+  {name:'Туманность Андромеды',price:1000,url:'https://wallpaper.forfun.com/fetch/8d/8dbdaf8bd40e873ddb331cad3c246db3.jpeg'},
+  {name:'Облако Сингулярности',price:2500,url:'https://media.istockphoto.com/id/1498666644/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%BE%D0%B1%D0%BB%D0%B0%D0%BA%D0%B0-%D1%87%D0%B5%D1%80%D0%BD%D0%BE%D0%B9-%D0%B4%D1%8B%D1%80%D1%8B-%D0%B2%D1%8B%D1%81%D0%BE%D0%BA%D0%BE%D0%BA%D0%B0%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B8%D0%BD%D0%B3.jpg?s=612x612&w=0&k=20&c=eDy_UIZjpbHlTQB5ub-WOapfMPEQMiVrUBSRptuR8eA='},
+  {name:'Квантовый Разлом',price:5000,url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0TgYQy6Kacnqz2eG4Kzpb5s3Ih73QeAYi8Q&s'},
+  {name:'Эхо Вселенной',price:8000,url:'https://images.steamusercontent.com/ugc/1675869057985981771/EC21624F70B718E5406F4748BD3DFC1EE4309CB7/?imw=512&imh=512&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true'},
+  {name:'Череп Пустоты',price:15000,url:'https://img.freepik.com/premium-vector/illustration-white-skull-black-background-skull-tattoos-illustration-scarf_15870-787.jpg'},
+  {name:'Крик Бездны',price:25000,url:'https://img.freepik.com/premium-vector/screaming-skull-vector-black-background_248052-86.jpg'},
+  {name:'Тетрадь Смерти',price:40000,url:'https://img.goodfon.ru/wallpaper/big/c/e3/death-note-tetrad-smerti-2436.webp'},
+  {name:'Астральный Символ',price:60000,url:'https://i.pinimg.com/736x/b9/30/ba/b930ba00009244ce23891e5c42e699e9.jpg'},
+  {name:'Галактический Разряд',price:100000,url:'https://klike.net/uploads/posts/2022-07/1657778940_37.jpg'},
+  {name:'Молниеносный Импульс',price:150000,url:'https://zefirka.club/uploads/posts/2023-01/thumbs/1673691446_24-zefirka-club-p-molniya-makvin-na-avu-35.jpg'},
+  {name:'Пламя Феникса',price:250000,url:'https://cdn.pixabay.com/photo/2016/11/29/05/45/astronomy-1867616_1280.jpg'},
+  {name:'Ледяной Кристалл',price:500000,url:'https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg'},
+  {name:'Золотая Галактика',price:1000000,url:'https://cdn.pixabay.com/photo/2016/10/20/18/35/earth-1756274_1280.jpg'},
+  {name:'Кровавая Луна',price:2000000,url:'https://cdn.pixabay.com/photo/2011/12/14/12/21/orion-nebula-11107_1280.jpg'},
+  {name:'Божественный Щит',price:5000000,url:'https://cdn.pixabay.com/photo/2017/09/12/11/56/universe-2742113_1280.jpg'},
+  {name:'Легенда Реформати',price:10000000,url:'https://cdn.pixabay.com/photo/2016/11/22/23/44/buildings-1851246_1280.jpg'},
+  {name:'Галактический Вихрь',price:150000,url:'https://wallpaper.forfun.com/fetch/60/604f6358cd0a4b83989516f724ed8bea.jpeg'},
+  {name:'Туманность Ориона',price:300000,url:'https://images.alphacoders.com/135/1354208.jpeg'},
+  {name:'Космический Океан',price:500000,url:'https://images.wallpapershq.com/wallpapers/1284/wallpaper_1284_3840x2160.jpg'},
+  {name:'Аниме Пейзаж',price:750000,url:'https://sotni.ru/wp-content/uploads/2023/08/anime-peizazh-375.webp'},
+  {name:'Аниме Закат',price:1000000,url:'https://abrakadabra.fun/uploads/posts/2022-02/1643978194_2-abrakadabra-fun-p-fon-dlya-prevyu-anime-2.jpg'},
+  {name:'Тёмный Лес',price:1500000,url:'https://img2.akspic.ru/crops/1/1/7/7/97711/97711-les-chernyj_les-priroda-derevo-solnechnyj_svet-3840x2160.jpg'},
+  {name:'Сингулярность',price:3000000,url:'https://server.wallpaperalchemy.com/storage/wallpapers/91/4k-black-hole-minimalistic-wallpaper.png'},
+  {name:'Планета Земля',price:5000000,url:'https://img3.akspic.ru/crops/1/9/9/5/25991/25991-zemlya-atmosfera-kosmos-prostranstvo-vselennaya-3840x2160.jpg'},
+  {name:'Ледяная Планета',price:8000000,url:'https://abrakadabra.fun/uploads/posts/2021-12/1640668539_5-abrakadabra-fun-p-oboi-na-rabochii-stol-planeta-6.png'}
 ];
 
+// РАСШИРЕННЫЕ ФОНЫ (12 штук)
 const backgrounds = [
-  {name:'Глубокий Космос',price:800,url:'https://images.wallpaperscraft.ru/image/single/kosmos_zvezdy_tumannost_157030_3840x2400.jpg'},
-  {name:'Сингулярность',price:2000,url:'https://server.wallpaperalchemy.com/storage/wallpapers/91/4k-black-hole-minimalistic-wallpaper.png'},
-  {name:'Планета Земля',price:3500,url:'https://img3.akspic.ru/crops/1/9/9/5/25991/25991-zemlya-atmosfera-kosmos-prostranstvo-vselennaya-3840x2160.jpg'},
-  {name:'Галактический Вихрь',price:5000,url:'https://wallpaper.forfun.com/fetch/60/604f6358cd0a4b83989516f724ed8bea.jpeg'},
-  {name:'Туманность Ориона',price:7500,url:'https://images.alphacoders.com/135/1354208.jpeg'},
-  {name:'Ледяная Планета',price:10000,url:'https://abrakadabra.fun/uploads/posts/2021-12/1640668539_5-abrakadabra-fun-p-oboi-na-rabochii-stol-planeta-6.png'},
-  {name:'Космический Океан',price:15000,url:'https://images.wallpapershq.com/wallpapers/1284/wallpaper_1284_3840x2160.jpg'},
-  {name:'Аниме Пейзаж',price:20000,url:'https://sotni.ru/wp-content/uploads/2023/08/anime-peizazh-375.webp'},
-  {name:'Аниме Закат',price:25000,url:'https://abrakadabra.fun/uploads/posts/2022-02/1643978194_2-abrakadabra-fun-p-fon-dlya-prevyu-anime-2.jpg'},
-  {name:'Тёмный Лес',price:30000,url:'https://img2.akspic.ru/crops/1/1/7/7/97711/97711-les-chernyj_les-priroda-derevo-solnechnyj_svet-3840x2160.jpg'}
+  {name:'Глубокий Космос',price:1500,url:'https://images.wallpaperscraft.ru/image/single/kosmos_zvezdy_tumannost_157030_3840x2400.jpg'},
+  {name:'Сингулярность',price:4000,url:'https://server.wallpaperalchemy.com/storage/wallpapers/91/4k-black-hole-minimalistic-wallpaper.png'},
+  {name:'Планета Земля',price:7000,url:'https://img3.akspic.ru/crops/1/9/9/5/25991/25991-zemlya-atmosfera-kosmos-prostranstvo-vselennaya-3840x2160.jpg'},
+  {name:'Галактический Вихрь',price:10000,url:'https://wallpaper.forfun.com/fetch/60/604f6358cd0a4b83989516f724ed8bea.jpeg'},
+  {name:'Туманность Ориона',price:15000,url:'https://images.alphacoders.com/135/1354208.jpeg'},
+  {name:'Ледяная Планета',price:20000,url:'https://abrakadabra.fun/uploads/posts/2021-12/1640668539_5-abrakadabra-fun-p-oboi-na-rabochii-stol-planeta-6.png'},
+  {name:'Космический Океан',price:30000,url:'https://images.wallpapershq.com/wallpapers/1284/wallpaper_1284_3840x2160.jpg'},
+  {name:'Аниме Пейзаж',price:40000,url:'https://sotni.ru/wp-content/uploads/2023/08/anime-peizazh-375.webp'},
+  {name:'Аниме Закат',price:50000,url:'https://abrakadabra.fun/uploads/posts/2022-02/1643978194_2-abrakadabra-fun-p-fon-dlya-prevyu-anime-2.jpg'},
+  {name:'Тёмный Лес',price:60000,url:'https://img2.akspic.ru/crops/1/1/7/7/97711/97711-les-chernyj_les-priroda-derevo-solnechnyj_svet-3840x2160.jpg'},
+  {name:'Звёздная Ночь',price:80000,url:'https://images.wallpaperscraft.com/image/single/night_stars_space_146031_3840x2160.jpg'},
+  {name:'Галактический Центр',price:100000,url:'https://images.wallpaperscraft.com/image/single/galaxy_stars_nebula_134936_3840x2160.jpg'}
 ];
+
+// АЧИВКИ
+const achievements = [
+  {
+    id: 'first_click',
+    name: 'Первый шаг',
+    desc: 'Совершите первый клик',
+    icon: '👣',
+    condition: () => totalClicks >= 1,
+    reward: { energy: 200 },
+    progress: () => Math.min(totalClicks, 1)
+  },
+  {
+    id: 'click_100',
+    name: 'Стремительный',
+    desc: '100 кликов',
+    icon: '⚡',
+    condition: () => totalClicks >= 100,
+    reward: { multiplier: 1.1 },
+    progress: () => Math.min(totalClicks / 100, 1)
+  },
+  {
+    id: 'click_1000',
+    name: 'Тысячник',
+    desc: '1,000 кликов',
+    icon: '🎯',
+    condition: () => totalClicks >= 1000,
+    reward: { multiplier: 1.15 },
+    progress: () => Math.min(totalClicks / 1000, 1)
+  },
+  {
+    id: 'click_10000',
+    name: 'Мастер клика',
+    desc: '10,000 кликов',
+    icon: '👑',
+    condition: () => totalClicks >= 10000,
+    reward: { multiplier: 1.2 },
+    progress: () => Math.min(totalClicks / 10000, 1)
+  },
+  {
+    id: 'click_100k',
+    name: 'Легенда клика',
+    desc: '100,000 кликов',
+    icon: '🏆',
+    condition: () => totalClicks >= 100000,
+    reward: { multiplier: 1.3 },
+    progress: () => Math.min(totalClicks / 100000, 1)
+  },
+  {
+    id: 'energy_10k',
+    name: 'Энергетик',
+    desc: '10,000 энергии',
+    icon: '⭐',
+    condition: () => highestEnergy >= 10000,
+    reward: { multiplier: 1.1 },
+    progress: () => Math.min(highestEnergy / 10000, 1)
+  },
+  {
+    id: 'energy_100k',
+    name: 'Профессионал',
+    desc: '100,000 энергии',
+    icon: '🌟🌟',
+    condition: () => highestEnergy >= 100000,
+    reward: { multiplier: 1.15 },
+    progress: () => Math.min(highestEnergy / 100000, 1)
+  },
+  {
+    id: 'energy_1m',
+    name: 'Магнат',
+    desc: '1,000,000 энергии',
+    icon: '💎',
+    condition: () => highestEnergy >= 1000000,
+    reward: { multiplier: 1.25 },
+    progress: () => Math.min(highestEnergy / 1000000, 1)
+  },
+  {
+    id: 'time_1h',
+    name: 'Ветеран',
+    desc: '1 час игры',
+    icon: '⏰',
+    condition: () => totalTimePlayed >= 3600,
+    reward: { multiplier: 1.1 },
+    progress: () => Math.min(totalTimePlayed / 3600, 1)
+  },
+  {
+    id: 'skin_collector',
+    name: 'Коллекционер',
+    desc: '5 скинов',
+    icon: '🎨',
+    condition: () => skinsPurchased >= 5,
+    reward: { multiplier: 1.15 },
+    progress: () => Math.min(skinsPurchased / 5, 1)
+  },
+  {
+    id: 'rebirth_5',
+    name: 'Перерожденец',
+    desc: '5 сингулярностей',
+    icon: '🌀',
+    condition: () => quantumGeneration >= 5,
+    reward: { multiplier: 1.3 },
+    progress: () => Math.min(quantumGeneration / 5, 1)
+  },
+  {
+    id: 'auto_master',
+    name: 'Автоматизатор',
+    desc: '100,000 авто-энергии',
+    icon: '🤖',
+    condition: () => totalAutoEarned >= 100000,
+    reward: { multiplier: 1.15 },
+    progress: () => Math.min(totalAutoEarned / 100000, 1)
+  },
+  {
+    id: 'combo_master',
+    name: 'Комбо-мастер',
+    desc: '30 кликов подряд',
+    icon: '🔥',
+    condition: () => consecutiveClicks >= 30,
+    reward: { multiplier: 1.2 },
+    progress: () => Math.min(consecutiveClicks / 30, 1)
+  },
+  {
+    id: 'upgrade_master',
+    name: 'Апгрейдер',
+    desc: '50 улучшений',
+    icon: '🔧',
+    condition: () => getTotalUpgrades() >= 50,
+    reward: { multiplier: 1.25 },
+    progress: () => Math.min(getTotalUpgrades() / 50, 1)
+  },
+  {
+    id: 'background_master',
+    name: 'Художник',
+    desc: 'Все фоны',
+    icon: '🎭',
+    condition: () => backgroundsPurchased >= backgrounds.length,
+    reward: { multiplier: 1.3 },
+    progress: () => Math.min(backgroundsPurchased / backgrounds.length, 1)
+  },
+  {
+    id: 'millionaire',
+    name: 'Миллионер',
+    desc: '10,000,000 энергии',
+    icon: '💰',
+    condition: () => stellarEnergy >= 10000000,
+    reward: { multiplier: 1.5 },
+    progress: () => Math.min(stellarEnergy / 10000000, 1)
+  },
+  {
+    id: 'rebirth_10',
+    name: 'Мастер сингулярности',
+    desc: '10 сингулярностей',
+    icon: '🌌',
+    condition: () => quantumGeneration >= 10,
+    reward: { multiplier: 1.5 },
+    progress: () => Math.min(quantumGeneration / 10, 1)
+  },
+  {
+    id: 'energy_100m',
+    name: 'Император энергии',
+    desc: '100,000,000 энергии',
+    icon: '👑',
+    condition: () => highestEnergy >= 100000000,
+    reward: { multiplier: 2.0 },
+    progress: () => Math.min(highestEnergy / 100000000, 1)
+  },
+  {
+    id: 'all_skins',
+    name: 'Властелин скинов',
+    desc: 'Все скины',
+    icon: '👁️',
+    condition: () => skinsPurchased >= skins.length,
+    reward: { multiplier: 1.75 },
+    progress: () => Math.min(skinsPurchased / skins.length, 1)
+  },
+  {
+    id: 'click_1m',
+    name: 'Машина для кликов',
+    desc: '1,000,000 кликов',
+    icon: '🤖',
+    condition: () => totalClicks >= 1000000,
+    reward: { multiplier: 1.5 },
+    progress: () => Math.min(totalClicks / 1000000, 1)
+  },
+  {
+    id: 'auto_god',
+    name: 'Бог автоматизации',
+    desc: '1,000,000 авто-энергии',
+    icon: '⚙️',
+    condition: () => totalAutoEarned >= 1000000,
+    reward: { multiplier: 1.4 },
+    progress: () => Math.min(totalAutoEarned / 1000000, 1)
+  },
+  {
+    id: 'rebirth_25',
+    name: 'Демиург',
+    desc: '25 сингулярностей',
+    icon: '✨',
+    condition: () => quantumGeneration >= 25,
+    reward: { multiplier: 2.5 },
+    progress: () => Math.min(quantumGeneration / 25, 1)
+  },
+  {
+    id: 'energy_1b',
+    name: 'Космический титан',
+    desc: '1,000,000,000 энергии',
+    icon: '💫',
+    condition: () => highestEnergy >= 1000000000,
+    reward: { multiplier: 3.0 },
+    progress: () => Math.min(highestEnergy / 1000000000, 1)
+  },
+  {
+    id: 'perfect_combo',
+    name: 'Идеальное комбо',
+    desc: '100 кликов подряд',
+    icon: '🎯',
+    condition: () => consecutiveClicks >= 100,
+    reward: { multiplier: 1.8 },
+    progress: () => Math.min(consecutiveClicks / 100, 1)
+  },
+  {
+    id: 'final_boss',
+    name: 'Повелитель Вселенной',
+    desc: 'Все достижения',
+    icon: '⚡',
+    condition: () => unlockedAchievements.size >= achievements.length - 1,
+    reward: { multiplier: 5.0 },
+    progress: () => Math.min(unlockedAchievements.size / (achievements.length - 1), 1)
+  }
+];
+
+let unlockedAchievements = new Set();
+let achievementMultiplier = 1.0;
 
 const ownedSkins = new Set();
 const ownedBackgrounds = new Set();
 const novaCore = document.getElementById('novaCore');
 
-// === АДАПТИВНЫЕ ФУНКЦИИ ===
+// === ФУНКЦИИ ===
 function formatNumber(num) {
-  if (num >= 1000000) {
-    return (num / 1000000).toFixed(1) + 'M';
-  }
-  if (num >= 1000) {
-    return (num / 1000).toFixed(1) + 'K';
-  }
-  return num.toString();
+  if (num >= 1000000000000) return (num / 1000000000000).toFixed(2) + 'T';
+  if (num >= 1000000000) return (num / 1000000000).toFixed(2) + 'B';
+  if (num >= 1000000) return (num / 1000000).toFixed(2) + 'M';
+  if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+  return Math.floor(num).toString();
 }
 
-// === КВАНТОВЫЙ ВСПЛЕСК (мобильная оптимизация) ===
-function createQuantumFlare(x, y, val) {
-  if (isMobile && Math.random() > 0.7) return; // Уменьшаем количество частиц на мобильных
-  
+function getTotalUpgrades() {
+  let total = 0;
+  clickUpgrades.forEach(up => total += up.count);
+  autoUpgrades.forEach(up => total += up.count);
+  multiplierUpgrades.forEach(up => total += up.count);
+  return total;
+}
+
+function createQuantumFlare(x, y, val, color = null) {
   const flare = document.createElement('div');
   flare.className = 'quantum-flare';
   flare.style.left = x + 'px';
   flare.style.top = y + 'px';
-  
-  const displayVal = isMobile ? formatNumber(val) : val.toLocaleString();
-  
-  if (val > 10000) {
-    flare.style.color = '#ff6b6b';
-    flare.textContent = '★+' + displayVal;
-  } else if (val > 1000) {
-    flare.style.color = '#9d4edd';
-    flare.textContent = '✦+' + displayVal;
-  } else {
-    flare.style.color = '#00b4ff';
-    flare.textContent = '⚡+' + displayVal;
-  }
-  
-  flare.style.fontSize = isMobile ? '16px' : '20px';
+  flare.textContent = '+' + formatNumber(val);
+  flare.style.color = color || (val > 10000 ? '#ff6b6b' : '#00b4ff');
   document.querySelector('.nova-core-area').appendChild(flare);
   setTimeout(() => flare.remove(), 1000);
 }
 
-// === ЯДРО НОВЫ (тач события) ===
-let touchStartTime = 0;
-novaCore.addEventListener('touchstart', function(e) {
-  touchStartTime = Date.now();
-  e.preventDefault();
-}, { passive: false });
+// Анимация получения ачивки
+function showAchievementNotification(achievement) {
+  const notification = document.createElement('div');
+  notification.className = 'achievement-notification';
+  notification.innerHTML = `
+    <div style="font-size:24px; margin-bottom:5px;">${achievement.icon}</div>
+    <div style="font-size:16px; margin-bottom:3px;">🏆 ${achievement.name} 🏆</div>
+    <div style="font-size:12px;">${achievement.desc}</div>
+  `;
+  
+  document.body.appendChild(notification);
+  setTimeout(() => notification.remove(), 3000);
+}
 
-novaCore.addEventListener('touchend', function(e) {
-  const touch = e.changedTouches[0];
-  const rect = novaCore.getBoundingClientRect();
-  const x = touch.clientX - rect.left;
-  const y = touch.clientY - rect.top;
-  
-  const val = Math.floor(corePower * quantumMulti * singularityMulti * skinBonusMulti);
-  stellarEnergy += val;
-  createQuantumFlare(x, y, val);
-  updateCosmicInterface();
-  
-  // Виброотклик на мобильных
-  if (isMobile && navigator.vibrate) {
-    navigator.vibrate(50);
-  }
-  
-  e.preventDefault();
-}, { passive: false });
-
-// Клик для десктопов
+// Клик по ядру
 novaCore.onclick = (e) => {
   const rect = novaCore.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
   
-  const val = Math.floor(corePower * quantumMulti * singularityMulti * skinBonusMulti);
+  const now = Date.now();
+  if (now - lastClickTime < 1000) consecutiveClicks++;
+  else consecutiveClicks = 1;
+  lastClickTime = now;
+  
+  totalClicks++;
+  const val = Math.floor(corePower * quantumMulti * singularityMulti * skinBonusMulti * achievementMultiplier);
   stellarEnergy += val;
+  if (stellarEnergy > highestEnergy) highestEnergy = stellarEnergy;
+  
   createQuantumFlare(x, y, val);
-  updateCosmicInterface();
+  updateInterface();
+  checkAchievements();
+  
+  // Звук клика
+  if (musicEnabled && audioContext) {
+    try {
+      const clickSound = audioContext.createOscillator();
+      const clickGain = audioContext.createGain();
+      clickSound.connect(clickGain);
+      clickGain.connect(audioContext.destination);
+      
+      clickSound.frequency.setValueAtTime(440, audioContext.currentTime);
+      clickSound.frequency.exponentialRampToValueAtTime(220, audioContext.currentTime + 0.1);
+      clickGain.gain.setValueAtTime(0.1, audioContext.currentTime);
+      clickGain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+      
+      clickSound.start();
+      clickSound.stop(audioContext.currentTime + 0.1);
+    } catch (e) {}
+  }
 };
 
-// === АКТИВАЦИЯ КОДА ===
-function activateStellarCode() {
-  if (stellarCodeUsed) {
-    showStellarMessage('Код уже активирован!', '#ff9800');
-    return;
-  }
-  
-  const codeInput = document.getElementById('stellarCode');
-  const code = codeInput.value.trim();
-  
-  if (code === '1324') {
-    corePower += 98453679;
-    stellarCodeUsed = true;
-    
-    showStellarMessage('КОД АКТИВИРОВАН! +98.4M', '#00e0ff');
-    
-    // Упрощенный эффект на мобильных
-    if (!isMobile) {
-      document.body.style.backgroundColor = '#4a00e0';
-      setTimeout(() => {
-        document.body.style.backgroundColor = '';
-      }, 800);
-      
-      for(let i = 0; i < 15; i++) {
-        setTimeout(() => {
-          const x = Math.random() * window.innerWidth;
-          const y = Math.random() * window.innerHeight;
-          createQuantumFlare(x, y, '★');
-        }, i * 40);
-      }
-    }
-    
-    codeInput.value = '';
-    codeInput.disabled = true;
-    codeInput.placeholder = 'АКТИВИРОВАН';
-    
-    updateCosmicInterface();
-  } else {
-    showStellarMessage('НЕВЕРНЫЙ КОД!', '#ff6b6b');
-  }
-}
-
-function showStellarMessage(text, color) {
-  const message = document.getElementById('stellarMessage');
-  message.textContent = text;
-  message.style.color = color;
-  message.style.display = 'block';
-  setTimeout(() => {
-    message.style.display = 'none';
-  }, 2000);
-}
-
-// === АВТО-СБОР ===
+// Авто-сбор
 setInterval(() => {
-  stellarEnergy += autoHarvest * quantumMulti * singularityMulti * skinBonusMulti;
-  updateCosmicInterface();
+  const earned = autoHarvest * quantumMulti * singularityMulti * skinBonusMulti * achievementMultiplier;
+  stellarEnergy += earned;
+  totalAutoEarned += earned;
+  if (stellarEnergy > highestEnergy) highestEnergy = stellarEnergy;
+  updateInterface();
 }, 1000);
 
-// === ВКЛАДКИ ===
+setInterval(() => {
+  totalTimePlayed++;
+  checkAchievements();
+}, 1000);
+
+function checkAchievements() {
+  achievements.forEach(achievement => {
+    if (!unlockedAchievements.has(achievement.id) && achievement.condition()) {
+      unlockedAchievements.add(achievement.id);
+      if (achievement.reward.energy) stellarEnergy += achievement.reward.energy;
+      if (achievement.reward.multiplier) achievementMultiplier *= achievement.reward.multiplier;
+      
+      // Показываем уведомление
+      showAchievementNotification(achievement);
+      
+      updateAchievementsDisplay();
+      updateInterface();
+    }
+  });
+}
+
+function updateAchievementsDisplay() {
+  document.getElementById('achievementsUnlocked').textContent = `${unlockedAchievements.size}/${achievements.length}`;
+  document.getElementById('achievementsBonus').textContent = `×${achievementMultiplier.toFixed(2)}`;
+  document.getElementById('achievementsBonusDisplay').textContent = `×${achievementMultiplier.toFixed(2)}`;
+  
+  const grid = document.getElementById('achievementsGrid');
+  grid.innerHTML = achievements.map(achievement => {
+    const unlocked = unlockedAchievements.has(achievement.id);
+    const progress = achievement.progress();
+    return `
+      <div class="achievement-card ${unlocked ? 'unlocked' : ''}">
+        <div class="achievement-icon">${achievement.icon}</div>
+        <div class="achievement-name">${achievement.name}</div>
+        <div class="achievement-desc">${achievement.desc}</div>
+        ${unlocked ? 
+          `<div class="achievement-reward">Награда: ${achievement.reward.multiplier ? '×' + achievement.reward.multiplier : formatNumber(achievement.reward.energy) + ' ЭН'}</div>` :
+          `<div class="achievement-progress"><div class="achievement-progress-bar" style="width:${progress * 100}%"></div></div>`
+        }
+      </div>
+    `;
+  }).join('');
+}
+
+// Активация кодов
+function activateStellarCode() {
+  const code = document.getElementById('stellarCode').value.trim();
+  const message = document.getElementById('stellarMessage');
+  
+  if (code === 'XaR03' && !stellarCodeUsed) {
+    corePower += 290000000;
+    quantumMulti *= 940;
+    autoHarvest += 190000;
+    stellarCodeUsed = true;
+    showMessage('СЕКРЕТНЫЙ КОД АКТИВИРОВАН!', '#00ff00');
+  } else if (code === 'free2026' && !localStorage.getItem('free2026_used')) {
+    stellarEnergy += 15000000;
+    singularityMulti *= 2;
+    localStorage.setItem('free2026_used', 'true');
+    showMessage('БОНУСНЫЙ КОД АКТИВИРОВАН!', '#00ff00');
+  } else if (code === '1324' && !stellarCodeUsed) {
+    corePower += 98453679;
+    stellarCodeUsed = true;
+    showMessage('БАЗОВЫЙ КОД АКТИВИРОВАН!', '#00b4ff');
+  } else {
+    showMessage('НЕВЕРНЫЙ ИЛИ УЖЕ ИСПОЛЬЗОВАННЫЙ КОД', '#ff6b6b');
+  }
+  
+  updateInterface();
+}
+
+function showMessage(text, color) {
+  const msg = document.getElementById('stellarMessage');
+  msg.textContent = text;
+  msg.style.color = color;
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 3000);
+}
+
+// Управление панелями
 function openTab(id, btn) {
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -1333,389 +1532,247 @@ function openShopTab(id, btn) {
 }
 
 function toggleStellarMenu() {
-  const menu = document.getElementById('stellarMenu');
-  menu.classList.toggle('active');
+  document.getElementById('stellarMenu').classList.toggle('active');
   document.getElementById('quantumUpgrades').classList.remove('active');
+  document.getElementById('achievementsPanel').classList.remove('active');
 }
 
 function toggleQuantumUpgrades() {
-  const upgrades = document.getElementById('quantumUpgrades');
-  upgrades.classList.toggle('active');
+  document.getElementById('quantumUpgrades').classList.toggle('active');
   document.getElementById('stellarMenu').classList.remove('active');
+  document.getElementById('achievementsPanel').classList.remove('active');
 }
 
-// === БОНУС СКИНОВ ===
-function calculateSkinBonus() {
-  const skinCount = ownedSkins.size;
-  if (skinCount === 0) return 1;
-  if (skinCount === 1) return 2;
-  return Math.pow(1.5, skinCount - 1);
+function toggleAchievements() {
+  document.getElementById('achievementsPanel').classList.toggle('active');
+  document.getElementById('stellarMenu').classList.remove('active');
+  document.getElementById('quantumUpgrades').classList.remove('active');
+  updateAchievementsDisplay();
 }
 
-// === ОТОБРАЖЕНИЕ ПРОКАЧЕК ===
+// Рендер улучшений
 function renderClickUpgrades() {
-  const container = document.getElementById('clickUpgradesGrid');
-  container.innerHTML = '';
-  
-  clickUpgrades.forEach((upgrade, index) => {
-    const btn = document.createElement('button');
-    btn.className = 'upgrade-btn';
-    
-    const price = upgrade.power * 20;
-    const displayPrice = isMobile ? formatNumber(price) : price.toLocaleString();
-    const displayPower = isMobile ? formatNumber(upgrade.power) : upgrade.power;
-    
-    btn.innerHTML = `
-      <div class="upgrade-value">+${displayPower}</div>
-      <div class="upgrade-price">${displayPrice} ЭН</div>
-      <div class="upgrade-name">${upgrade.name}</div>
+  const grid = document.getElementById('clickUpgradesGrid');
+  grid.innerHTML = clickUpgrades.map(upgrade => {
+    const price = Math.floor(upgrade.basePrice * Math.pow(1.7, upgrade.count));
+    const affordable = stellarEnergy >= price;
+    return `
+      <button class="upgrade-btn" onclick="buyClickUpgrade('${upgrade.id}')" ${!affordable ? 'disabled' : ''}>
+        <div class="upgrade-value">+${formatNumber(upgrade.power)}</div>
+        <div class="upgrade-price">${formatNumber(price)} ЭН</div>
+        <div class="upgrade-name">${upgrade.name}</div>
+        ${upgrade.count > 0 ? `<div style="font-size:9px; color:#4caf50;">Ур. ${upgrade.count + 1}</div>` : ''}
+      </button>
     `;
-    
-    btn.disabled = stellarEnergy < price;
-    btn.onclick = () => {
-      if (stellarEnergy < price) return;
-      stellarEnergy -= price;
-      corePower += upgrade.power;
-      updateCosmicInterface();
-      
-      if (!isMobile) {
-        novaCore.style.boxShadow = '0 0 80px rgba(0,180,255,0.8)';
-        setTimeout(() => {
-          novaCore.style.boxShadow = '';
-        }, 300);
-      }
-    };
-    
-    container.appendChild(btn);
-  });
+  }).join('');
+}
+
+function buyClickUpgrade(id) {
+  const upgrade = clickUpgrades.find(u => u.id === id);
+  const price = Math.floor(upgrade.basePrice * Math.pow(1.7, upgrade.count));
+  if (stellarEnergy >= price) {
+    stellarEnergy -= price;
+    corePower += upgrade.power;
+    upgrade.count++;
+    renderClickUpgrades();
+    updateInterface();
+  }
 }
 
 function renderAutoUpgrades() {
-  const container = document.getElementById('autoUpgradesGrid');
-  container.innerHTML = '';
-  
-  autoUpgrades.forEach((upgrade, index) => {
-    const btn = document.createElement('button');
-    btn.className = 'upgrade-btn';
-    
-    const price = upgrade.power * 30;
-    const displayPrice = isMobile ? formatNumber(price) : price.toLocaleString();
-    const displayPower = isMobile ? formatNumber(upgrade.power) : upgrade.power;
-    
-    btn.innerHTML = `
-      <div class="upgrade-value">+${displayPower}/сек</div>
-      <div class="upgrade-price">${displayPrice} ЭН</div>
-      <div class="upgrade-name">${upgrade.name}</div>
+  const grid = document.getElementById('autoUpgradesGrid');
+  grid.innerHTML = autoUpgrades.map(upgrade => {
+    const price = Math.floor(upgrade.basePrice * Math.pow(1.6, upgrade.count));
+    const affordable = stellarEnergy >= price;
+    return `
+      <button class="upgrade-btn" onclick="buyAutoUpgrade('${upgrade.id}')" ${!affordable ? 'disabled' : ''}>
+        <div class="upgrade-value">+${formatNumber(upgrade.power)}/с</div>
+        <div class="upgrade-price">${formatNumber(price)} ЭН</div>
+        <div class="upgrade-name">${upgrade.name}</div>
+        ${upgrade.count > 0 ? `<div style="font-size:9px; color:#4caf50;">Ур. ${upgrade.count + 1}</div>` : ''}
+      </button>
     `;
-    
-    btn.disabled = stellarEnergy < price;
-    btn.onclick = () => {
-      if (stellarEnergy < price) return;
-      stellarEnergy -= price;
-      autoHarvest += upgrade.power;
-      updateCosmicInterface();
-      
-      if (!isMobile) {
-        for(let i = 0; i < 2; i++) {
-          setTimeout(() => {
-            const x = Math.random() * 200 + 50;
-            const y = Math.random() * 200 + 50;
-            createQuantumFlare(x, y, '🌀');
-          }, i * 200);
-        }
-      }
-    };
-    
-    container.appendChild(btn);
-  });
+  }).join('');
+}
+
+function buyAutoUpgrade(id) {
+  const upgrade = autoUpgrades.find(u => u.id === id);
+  const price = Math.floor(upgrade.basePrice * Math.pow(1.6, upgrade.count));
+  if (stellarEnergy >= price) {
+    stellarEnergy -= price;
+    autoHarvest += upgrade.power;
+    upgrade.count++;
+    renderAutoUpgrades();
+    updateInterface();
+  }
 }
 
 function renderMultipliers() {
-  const container = document.getElementById('multiplierGrid');
-  container.innerHTML = '';
-  
-  multiplierUpgrades.forEach((multiplier, index) => {
-    const btn = document.createElement('button');
-    btn.className = 'upgrade-btn';
-    
-    const purchased = purchasedMultipliers.has(index);
-    const displayPrice = isMobile ? formatNumber(multiplier.price) : multiplier.price.toLocaleString();
-    
-    btn.innerHTML = `
-      <div class="upgrade-value">${multiplier.name.split(' ')[0]}</div>
-      <div class="upgrade-price">${displayPrice} ЭН</div>
-      <div class="upgrade-name">${multiplier.name}</div>
+  const grid = document.getElementById('multiplierGrid');
+  grid.innerHTML = multiplierUpgrades.map(upgrade => {
+    const price = Math.floor(upgrade.basePrice * Math.pow(2.2, upgrade.count));
+    const affordable = stellarEnergy >= price;
+    return `
+      <button class="upgrade-btn" onclick="buyMultiplier('${upgrade.id}')" ${!affordable ? 'disabled' : ''}>
+        <div class="upgrade-value">${upgrade.name.split(' ')[0]}</div>
+        <div class="upgrade-price">${formatNumber(price)} ЭН</div>
+        <div class="upgrade-name">${upgrade.name}</div>
+        ${upgrade.count > 0 ? `<div style="font-size:9px; color:#ff9800;">Ур. ${upgrade.count + 1}</div>` : ''}
+      </button>
     `;
-    
-    if (purchased) {
-      btn.classList.add('purchased');
-      btn.disabled = true;
-    } else {
-      btn.disabled = stellarEnergy < multiplier.price;
-      btn.onclick = () => {
-        if (stellarEnergy < multiplier.price) return;
-        stellarEnergy -= multiplier.price;
-        quantumMulti *= multiplier.value;
-        purchasedMultipliers.add(index);
-        updateCosmicInterface();
-        
-        if (!isMobile) {
-          document.body.style.backgroundColor = '#9d4edd';
-          setTimeout(() => {
-            document.body.style.backgroundColor = '';
-          }, 400);
-        }
-      };
-    }
-    
-    container.appendChild(btn);
-  });
+  }).join('');
 }
 
-// === КАРТОЧКИ СКИНОВ ===
+function buyMultiplier(id) {
+  const upgrade = multiplierUpgrades.find(u => u.id === id);
+  const price = Math.floor(upgrade.basePrice * Math.pow(2.2, upgrade.count));
+  if (stellarEnergy >= price) {
+    stellarEnergy -= price;
+    quantumMulti *= upgrade.value;
+    upgrade.count++;
+    renderMultipliers();
+    updateInterface();
+  }
+}
+
+// Рендер магазина
 function renderSkins() {
-  const container = document.getElementById('skinsGrid');
-  container.innerHTML = '';
-  
-  skins.forEach(skin => {
-    const card = document.createElement('div');
-    card.className = 'skin-card';
-    
+  const grid = document.getElementById('skinsGrid');
+  grid.innerHTML = skins.map(skin => {
     const owned = ownedSkins.has(skin.name);
-    const displayPrice = isMobile ? formatNumber(skin.price) : skin.price;
-    
-    if (owned) {
-      card.classList.add('owned');
-      card.innerHTML = `
-        <div class="skin-owned-badge">✓</div>
+    const affordable = stellarEnergy >= skin.price;
+    return `
+      <div class="skin-card" onclick="buySkin('${skin.name}', ${skin.price}, '${skin.url}')" style="cursor:${owned || affordable ? 'pointer' : 'not-allowed'}; opacity:${!owned && !affordable ? 0.6 : 1}">
+        ${owned ? '<div class="skin-owned-badge">✓</div>' : ''}
         <img src="${skin.url}" alt="${skin.name}" class="skin-image" loading="lazy">
         <div class="skin-info">
           <div class="skin-name">${skin.name}</div>
-          <div class="skin-price">КУПЛЕНО</div>
+          <div class="skin-price">${owned ? 'КУПЛЕНО' : formatNumber(skin.price) + ' ЭН'}</div>
         </div>
-      `;
-    } else if (stellarEnergy >= skin.price) {
-      card.classList.add('available');
-      card.innerHTML = `
-        <img src="${skin.url}" alt="${skin.name}" class="skin-image" loading="lazy">
-        <div class="skin-info">
-          <div class="skin-name">${skin.name}</div>
-          <div class="skin-price">${displayPrice} ЭН</div>
-        </div>
-      `;
-    } else {
-      card.style.opacity = '0.6';
-      card.innerHTML = `
-        <img src="${skin.url}" alt="${skin.name}" class="skin-image" loading="lazy">
-        <div class="skin-info">
-          <div class="skin-name">${skin.name}</div>
-          <div class="skin-price">${displayPrice} ЭН</div>
-        </div>
-      `;
-    }
-    
-    card.onclick = () => {
-      if (stellarEnergy < skin.price && !owned) return;
-      
-      ownedSkins.add(skin.name);
-      novaCore.style.backgroundImage = `url(${skin.url})`;
-      skinBonusMulti = calculateSkinBonus();
-      
-      if (!owned) {
-        stellarEnergy -= skin.price;
-        if (!isMobile) {
-          novaCore.style.boxShadow = '0 0 80px rgba(157,78,221,0.9)';
-          setTimeout(() => {
-            novaCore.style.boxShadow = '';
-          }, 1000);
-        }
-      }
-      
-      updateCosmicInterface();
-    };
-    
-    container.appendChild(card);
-  });
+      </div>
+    `;
+  }).join('');
+}
+
+function buySkin(name, price, url) {
+  if (ownedSkins.has(name)) {
+    novaCore.style.backgroundImage = `url(${url})`;
+    return;
+  }
+  if (stellarEnergy >= price) {
+    stellarEnergy -= price;
+    ownedSkins.add(name);
+    skinsPurchased++;
+    novaCore.style.backgroundImage = `url(${url})`;
+    skinBonusMulti = calculateSkinBonus();
+    renderSkins();
+    updateInterface();
+    checkAchievements();
+  }
 }
 
 function renderBackgrounds() {
-  const container = document.getElementById('backgroundsGrid');
-  container.innerHTML = '';
-  
-  backgrounds.forEach(bg => {
-    const card = document.createElement('div');
-    card.className = 'skin-card';
-    
+  const grid = document.getElementById('backgroundsGrid');
+  grid.innerHTML = backgrounds.map(bg => {
     const owned = ownedBackgrounds.has(bg.name);
-    const displayPrice = isMobile ? formatNumber(bg.price) : bg.price;
-    
-    if (owned) {
-      card.classList.add('owned');
-      card.innerHTML = `
-        <div class="skin-owned-badge">✓</div>
+    const affordable = stellarEnergy >= bg.price;
+    return `
+      <div class="skin-card" onclick="buyBackground('${bg.name}', ${bg.price}, '${bg.url}')" style="cursor:${owned || affordable ? 'pointer' : 'not-allowed'}; opacity:${!owned && !affordable ? 0.6 : 1}">
+        ${owned ? '<div class="skin-owned-badge">✓</div>' : ''}
         <img src="${bg.url}" alt="${bg.name}" class="skin-image" loading="lazy">
         <div class="skin-info">
           <div class="skin-name">${bg.name}</div>
-          <div class="skin-price">КУПЛЕНО</div>
+          <div class="skin-price">${owned ? 'КУПЛЕНО' : formatNumber(bg.price) + ' ЭН'}</div>
         </div>
-      `;
-    } else if (stellarEnergy >= bg.price) {
-      card.classList.add('available');
-      card.innerHTML = `
-        <img src="${bg.url}" alt="${bg.name}" class="skin-image" loading="lazy">
-        <div class="skin-info">
-          <div class="skin-name">${bg.name}</div>
-          <div class="skin-price">${displayPrice} ЭН</div>
-        </div>
-      `;
-    } else {
-      card.style.opacity = '0.6';
-      card.innerHTML = `
-        <img src="${bg.url}" alt="${bg.name}" class="skin-image" loading="lazy">
-        <div class="skin-info">
-          <div class="skin-name">${bg.name}</div>
-          <div class="skin-price">${displayPrice} ЭН</div>
-        </div>
-      `;
-    }
-    
-    card.onclick = () => {
-      if (stellarEnergy < bg.price && !owned) return;
-      
-      ownedBackgrounds.add(bg.name);
-      document.body.style.backgroundImage = `url(${bg.url})`;
-      
-      if (!owned) {
-        stellarEnergy -= bg.price;
-      }
-      
-      updateCosmicInterface();
-    };
-    
-    container.appendChild(card);
-  });
+      </div>
+    `;
+  }).join('');
 }
 
-// === СИНГУЛЯРНОСТЬ ===
+function buyBackground(name, price, url) {
+  if (ownedBackgrounds.has(name)) {
+    document.body.style.backgroundImage = `url(${url})`;
+    return;
+  }
+  if (stellarEnergy >= price) {
+    stellarEnergy -= price;
+    ownedBackgrounds.add(name);
+    backgroundsPurchased++;
+    document.body.style.backgroundImage = `url(${url})`;
+    renderBackgrounds();
+    updateInterface();
+    checkAchievements();
+  }
+}
+
+function calculateSkinBonus() {
+  const totalSkins = ownedSkins.size;
+  if (totalSkins === 0) return 1;
+  return 1 + (totalSkins * 0.05); // 5% бонус за каждый скин
+}
+
+// Сингулярность
 function quantumSingularity() {
-  const singularityCost = 1000000;
-  if (stellarEnergy < singularityCost) return;
+  if (stellarEnergy < rebirthCost) return;
   
   quantumGeneration++;
+  rebirthCost = Math.floor(rebirthCost * rebirthIncrease);
   singularityMulti *= 2;
   
   stellarEnergy = 0;
   corePower = 1;
   autoHarvest = 0;
   quantumMulti = 1;
-  purchasedMultipliers.clear();
+  
+  clickUpgrades.forEach(up => up.count = 0);
+  autoUpgrades.forEach(up => up.count = 0);
+  multiplierUpgrades.forEach(up => up.count = 0);
   
   if (stellarCodeUsed) {
     corePower += 98453679;
   }
   
   skinBonusMulti = calculateSkinBonus();
-  updateCosmicInterface();
   
-  if (!isMobile) {
-    const colors = ['#9d4edd', '#ff6b6b', '#00b4ff', '#f9c74f'];
-    let colorIndex = 0;
-    
-    const colorShift = setInterval(() => {
-      document.body.style.backgroundColor = colors[colorIndex];
-      colorIndex = (colorIndex + 1) % colors.length;
-    }, 100);
-    
-    setTimeout(() => {
-      clearInterval(colorShift);
-      document.body.style.backgroundColor = '';
-    }, 1000);
-    
-    for(let i = 0; i < 20; i++) {
-      setTimeout(() => {
-        const x = Math.random() * window.innerWidth;
-        const y = Math.random() * window.innerHeight;
-        const flare = document.createElement('div');
-        flare.className = 'quantum-flare';
-        flare.style.left = x + 'px';
-        flare.style.top = y + 'px';
-        flare.style.color = colors[Math.floor(Math.random() * colors.length)];
-        flare.textContent = '⚡';
-        document.body.appendChild(flare);
-        setTimeout(() => flare.remove(), 1000);
-      }, i * 50);
-    }
-  }
+  updateInterface();
+  checkAchievements();
 }
 
-// === ОБНОВЛЕНИЕ ===
-function updateCosmicInterface() {
-  skinBonusMulti = calculateSkinBonus();
+// Обновление интерфейса
+function updateInterface() {
+  const totalMultiplier = quantumMulti * singularityMulti * skinBonusMulti * achievementMultiplier;
   
-  const displayEnergy = isMobile ? formatNumber(stellarEnergy) : stellarEnergy.toLocaleString();
-  const displayCore = isMobile ? formatNumber(corePower) : corePower.toLocaleString();
-  const displayAuto = isMobile ? formatNumber(autoHarvest) : autoHarvest.toLocaleString();
-  
-  document.getElementById('stellarEnergy').textContent = displayEnergy;
-  document.getElementById('energyDisplay').textContent = displayEnergy;
-  document.getElementById('corePower').textContent = displayCore;
-  document.getElementById('autoHarvest').textContent = displayAuto + '/сек';
-  document.getElementById('quantumMulti').textContent = '×' + quantumMulti;
-  document.getElementById('totalOutput').textContent = '×' + (quantumMulti * singularityMulti * skinBonusMulti).toFixed(1);
+  document.getElementById('stellarEnergy').textContent = formatNumber(stellarEnergy);
+  document.getElementById('energyDisplay').textContent = formatNumber(stellarEnergy);
+  document.getElementById('corePower').textContent = formatNumber(corePower);
+  document.getElementById('autoHarvest').textContent = formatNumber(autoHarvest) + '/сек';
+  document.getElementById('quantumMulti').textContent = '×' + quantumMulti.toFixed(1);
+  document.getElementById('totalOutput').textContent = '×' + totalMultiplier.toFixed(1);
   
   document.getElementById('quantumGeneration').textContent = quantumGeneration;
   document.getElementById('singularityMulti').textContent = '×' + singularityMulti;
-  document.getElementById('skinBonusDisplay').textContent = '×' + skinBonusMulti.toFixed(1);
   
-  const singularityBtn = document.getElementById('singularityBtn');
-  const singularityCost = 1000000;
-  singularityBtn.disabled = stellarEnergy < singularityCost;
-  singularityBtn.textContent = stellarEnergy >= singularityCost ? 
-    'СИНГУЛЯРНОСТЬ (' + (isMobile ? '1M' : '1.000.000') + ' ЭН)' : 
-    'НУЖНО ' + (isMobile ? '1M' : '1.000.000') + ' ЭН';
-  
+  const btn = document.getElementById('singularityBtn');
+  btn.disabled = stellarEnergy < rebirthCost;
+  btn.textContent = stellarEnergy >= rebirthCost ? 
+    `СИНГУЛЯРНОСТЬ (${formatNumber(rebirthCost)} ЭН)` : 
+    `НУЖНО ${formatNumber(rebirthCost)} ЭН`;
+}
+
+// Инициализация
+function init() {
   renderClickUpgrades();
   renderAutoUpgrades();
   renderMultipliers();
   renderSkins();
   renderBackgrounds();
+  updateInterface();
+  updateAchievementsDisplay();
+  initAudio();
 }
 
-// === ИНИЦИАЛИЗАЦИЯ ===
-updateCosmicInterface();
-
-// Предотвращение масштабирования на iOS
-document.addEventListener('touchmove', function(e) {
-  if(e.scale !== 1) {
-    e.preventDefault();
-  }
-}, { passive: false });
-
-// Оптимизация для мобильных устройств
-if (isMobile) {
-  // Уменьшаем частоту обновления интерфейса на мобильных
-  setInterval(updateCosmicInterface, 2000);
-  
-  // Предотвращаем меню контекста при долгом нажатии
-  document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-    return false;
-  });
-  
-  // Оптимизация загрузки изображений
-  window.addEventListener('load', function() {
-    const images = document.querySelectorAll('img');
-    images.forEach(img => {
-      if (img.complete) {
-        img.style.opacity = '1';
-      } else {
-        img.addEventListener('load', function() {
-          this.style.opacity = '1';
-        });
-      }
-    });
-  });
-}
+// Запуск
+init();
 </script>
 </body>
 </html>
