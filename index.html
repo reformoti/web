@@ -1,606 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<br lang="en">
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>10-A English</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #eef2f5;
-            font-family: 'Georgia', 'Times New Roman', 'Charter', 'Segoe UI', system-ui, serif;
-            line-height: 1.5;
-            padding: 2rem 1rem;
-            color: #1e2f3a;
-        }
-
-        .wikibox {
-            max-width: 900px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 2px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            border: 1px solid #d0d5da;
-            overflow: hidden;
-        }
-
-        .wiki-header {
-            background: #f5f9ff;
-            border-bottom: 1px solid #dce3ec;
-            padding: 1.3rem 2rem;
-        }
-
-        .wiki-header h1 {
-            font-size: 1.9rem;
-            font-weight: normal;
-            font-family: 'Georgia', serif;
-            color: #2f6b7c;
-            letter-spacing: -0.2px;
-            margin-bottom: 6px;
-        }
-
-        .wiki-header p {
-            font-size: 0.85rem;
-            color: #6f7e8c;
-        }
-
-        .wiki-stats {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 14px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .difficulty-badge {
-            background: #fef3e4;
-            border: 1px solid #f0d5b0;
-            padding: 4px 14px;
-            font-size: 0.7rem;
-            border-radius: 20px;
-            color: #b47c44;
-            font-family: sans-serif;
-        }
-
-        .progress-track {
-            flex: 1;
-            min-width: 140px;
-            background: #e6eef5;
-            height: 6px;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            background: #6ba5b8;
-            width: 0%;
-            height: 100%;
-            transition: width 0.2s ease;
-        }
-
-        .wiki-content {
-            padding: 2rem 2rem 1.8rem;
-            background: #ffffff;
-        }
-
-        .question-card {
-            background: #fefcf8;
-            border: 1px solid #e2e6ea;
-            padding: 1.4rem 1.6rem;
-            margin-bottom: 1.8rem;
-        }
-
-        .question-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            font-weight: 500;
-            color: #6f7e8c;
-            letter-spacing: 0.4px;
-            border-bottom: 1px solid #e9edf2;
-            display: inline-block;
-            padding-bottom: 4px;
-            margin-bottom: 14px;
-        }
-
-        .ukr-text {
-            font-size: 1.9rem;
-            font-weight: 500;
-            color: #1a4b5c;
-            line-height: 1.4;
-            background: #ffffff;
-            padding: 0.4rem 0.1rem;
-            font-family: 'Georgia', 'Times New Roman', serif;
-        }
-
-        .extra-hint {
-            font-size: 0.7rem;
-            color: #b0aa8f;
-            margin-top: 12px;
-            font-style: italic;
-        }
-
-        .options-area {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin: 22px 0 18px;
-        }
-
-        .option-item {
-            background: #ffffff;
-            border: 1px solid #cfd9e2;
-            padding: 11px 18px;
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            cursor: pointer;
-            transition: all 0.12s linear;
-        }
-
-        .option-item:hover:not(.opt-disabled) {
-            background-color: #f3f9fe;
-            border-color: #8fbbd0;
-            transform: translateX(2px);
-        }
-
-        .option-letter {
-            font-weight: 600;
-            color: #54809b;
-            background: #f0f4f9;
-            width: 32px;
-            height: 32px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 2px;
-            font-size: 0.9rem;
-        }
-
-        .option-english {
-            font-size: 0.95rem;
-            color: #2f4858;
-        }
-
-        .feedback-block {
-            margin: 12px 0 20px;
-            padding: 10px 16px;
-            font-size: 0.9rem;
-            border-left: 4px solid #d0d7de;
-            background: #fafbfd;
-            color: #3d5f70;
-        }
-
-        .feedback-correct {
-            border-left-color: #5fae8b;
-            background: #effaf4;
-            color: #2a6e54;
-        }
-
-        .feedback-wrong {
-            border-left-color: #e09d7c;
-            background: #fef5f0;
-            color: #bc694b;
-        }
-
-        .button-row {
-            display: flex;
-            gap: 14px;
-            margin: 10px 0 12px;
-            flex-wrap: wrap;
-        }
-
-        .wiki-btn {
-            background: #f8fafc;
-            border: 1px solid #b9c2cc;
-            padding: 10px 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            font-family: inherit;
-            color: #386a7c;
-            transition: 0.08s linear;
-        }
-
-        .wiki-btn-primary {
-            background: #eef4fc;
-            border-color: #8faec9;
-            flex: 2;
-        }
-
-        .wiki-btn-primary:active {
-            background: #e2ecf7;
-        }
-
-        .wiki-btn-primary:disabled {
-            background: #eceff3;
-            border-color: #c2cad2;
-            color: #8696a4;
-            cursor: default;
-        }
-
-        .wiki-btn-finish {
-            background: #fef3e8;
-            border-color: #e2bf94;
-            color: #ad7a48;
-            flex: 1;
-        }
-
-        .wiki-btn-reset {
-            background: #ffffff;
-            border-color: #cbd3db;
-            color: #6d808e;
-            width: 100%;
-            margin-top: 8px;
-        }
-
-        footer {
-            font-size: 0.7rem;
-            color: #a7b2bc;
-            border-top: 1px solid #eef2f6;
-            margin-top: 28px;
-            padding-top: 14px;
-            text-align: center;
-        }
-
-        @media (max-width: 650px) {
-            .wiki-content { padding: 1rem; }
-            .ukr-text { font-size: 1.4rem; }
-            .option-item { padding: 8px 14px; }
-        }
-    </style>
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reformoti</title>
+    <link rel="stylesheet" href="style.css">
+    
+    
+</head>      
 <body>
-<div class="wikibox">
-    <div class="wiki-header">
-        <h1>10-A English · future constructions</h1>
-        <p>will / be going to / be about to — Ukrainian to English translation</p>
-        <div class="wiki-stats">
-            <span class="difficulty-badge" id="levelLabel">32 verified questions</span>
-            <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-        </div>
-    </div>
-    <div class="wiki-content">
-        <div class="question-card">
-            <div class="question-label">source phrase (ukrainian)</div>
-            <div class="ukr-text" id="ukrPhrase">loading...</div>
-            <div class="extra-hint">choose the only grammatically flawless translation</div>
-        </div>
-
-        <div class="options-area" id="optionsList"></div>
-        <div class="feedback-block" id="feedbackMessage"></div>
-
-        <div class="button-row">
-            <button class="wiki-btn wiki-btn-primary" id="nextBtn" disabled>next challenge</button>
-            <button class="wiki-btn wiki-btn-finish" id="finishBtn">finalise test</button>
-        </div>
-        <button class="wiki-btn wiki-btn-reset" id="resetBtn">restart session</button>
-        <footer>prepared by lyceum student: Reshetnyk Emmanuel | 32 handcrafted questions</footer>
-    </div>
-</div>
-
-<script>
-(function(){
-    const QUESTIONS = [
-        { ukr: "Я зателефоную тобі завтра, навіть якщо буде пізно.",
-          correct: "I will call you tomorrow even if it is late.",
-          wrong1: "I am going to call you tomorrow even if it is late.",
-          wrong2: "I call you tomorrow even if it is late." },
-        { ukr: "Вона збирається відкрити власну справу наступного місяця.",
-          correct: "She is going to open her own business next month.",
-          wrong1: "She will open her own business next month.",
-          wrong2: "She going to open her own business next month." },
-        { ukr: "Автобус ось-ось від'їде, поспішай!",
-          correct: "The bus is about to leave, hurry up!",
-          wrong1: "The bus will about to leave, hurry up!",
-          wrong2: "The bus is going to leave, hurry up!" },
-        { ukr: "Я обіцяю, що ніколи більше не приховуватиму правду.",
-          correct: "I promise I will never hide the truth again.",
-          wrong1: "I promise I am going to never hide the truth again.",
-          wrong2: "I promise I never hide the truth again." },
-        { ukr: "Подивись на ті хмари — зараз піде дощ.",
-          correct: "Look at those clouds — it is going to rain.",
-          wrong1: "Look at those clouds — it will rain.",
-          wrong2: "Look at those clouds — it about to rain." },
-        { ukr: "Він ось-ось втратить свідомість, викличте лікаря!",
-          correct: "He is about to lose consciousness, call a doctor!",
-          wrong1: "He will about to lose consciousness, call a doctor!",
-          wrong2: "He is going to lose consciousness, call a doctor!" },
-        { ukr: "Я думаю, що завтрашню зустріч скасують.",
-          correct: "I think tomorrow's meeting will be canceled.",
-          wrong1: "I think tomorrow's meeting is going to be canceled.",
-          wrong2: "I think tomorrow's meeting be canceled." },
-        { ukr: "Ми збираємося реконструювати міст наступного року.",
-          correct: "We are going to reconstruct the bridge next year.",
-          wrong1: "We will reconstruct the bridge next year.",
-          wrong2: "We are to reconstruct the bridge next year." },
-        { ukr: "Потяг ось-ось прибуде на перон, займіть місця.",
-          correct: "The train is about to arrive at the platform, take your seats.",
-          wrong1: "The train will about to arrive at the platform.",
-          wrong2: "The train is going to arrive at the platform." },
-        { ukr: "Телефон дзвонить! Я зараз відповім.",
-          correct: "The phone is ringing! I will answer it.",
-          wrong1: "The phone is ringing! I am going to answer it.",
-          wrong2: "The phone is ringing! I answer it." },
-        { ukr: "Незважаючи на попередження, вона все одно збирається мандрувати сама.",
-          correct: "Despite the warnings, she is still going to travel alone.",
-          wrong1: "Despite the warnings, she will still travel alone.",
-          wrong2: "Despite the warnings, she is about travel alone." },
-        { ukr: "Вони ось-ось підпишуть контракт — залишилися останні деталі.",
-          correct: "They are about to sign the contract — final details remain.",
-          wrong1: "They will about to sign the contract — final details remain.",
-          wrong2: "They are going to sign the contract — final details remain." },
-        { ukr: "Якщо ти не зупинишся, я піду геть.",
-          correct: "If you don't stop, I will leave.",
-          wrong1: "If you don't stop, I am going to leave.",
-          wrong2: "If you don't stop, I leave." },
-        { ukr: "Це неймовірно! Вона вперше виступить на сцені.",
-          correct: "This is incredible! She is going to perform on stage for the first time.",
-          wrong1: "This is incredible! She will perform on stage for the first time.",
-          wrong2: "This is incredible! She is about perform on stage for the first time." },
-        { ukr: "Дощ ось-ось почнеться, вже відчувається вологість.",
-          correct: "The rain is about to start, the humidity is already felt.",
-          wrong1: "The rain will start, the humidity is already felt.",
-          wrong2: "The rain is going start, the humidity is already felt." },
-        { ukr: "Я переконаний, що вони виграють цей турнір.",
-          correct: "I am convinced they will win this tournament.",
-          wrong1: "I am convinced they are going to win this tournament.",
-          wrong2: "I am convinced they win this tournament." },
-        { ukr: "Він збирається звільнитися з роботи, бо знайшов кращу пропозицію.",
-          correct: "He is going to quit his job because he found a better offer.",
-          wrong1: "He will quit his job because he found a better offer.",
-          wrong2: "He is about quit his job because he found a better offer." },
-        { ukr: "Увага! Бомба ось-ось вибухне.",
-          correct: "Attention! The bomb is about to explode.",
-          wrong1: "Attention! The bomb will explode.",
-          wrong2: "Attention! The bomb going to explode." },
-        { ukr: "Я обіцяю, що повернуся до світанку.",
-          correct: "I promise I will return by dawn.",
-          wrong1: "I promise I am going to return by dawn.",
-          wrong2: "I promise I return by dawn." },
-        { ukr: "Згідно з прогнозом, температура завтра підніметься вище тридцяти градусів.",
-          correct: "According to the forecast, the temperature will rise above thirty degrees tomorrow.",
-          wrong1: "According to the forecast, the temperature is going to rise above thirty degrees tomorrow.",
-          wrong2: "According to the forecast, the temperature rises above thirty degrees tomorrow." },
-        { ukr: "Вона ось-ось зробить важливу заяву — всі замовкли.",
-          correct: "She is about to make an important statement — everyone fell silent.",
-          wrong1: "She will about to make an important statement.",
-          wrong2: "She is going to make an important statement — everyone fell silent." },
-        { ukr: "Якщо ти продовжиш у тому ж дусі, ти обов'язково досягнеш успіху.",
-          correct: "If you continue in the same spirit, you will definitely succeed.",
-          wrong1: "If you continue, you are going to definitely succeed.",
-          wrong2: "If you continue, you definitely succeed." },
-        { ukr: "Мій брат збирається одружитися наступного літа.",
-          correct: "My brother is going to get married next summer.",
-          wrong1: "My brother will get married next summer.",
-          wrong2: "My brother gets married next summer." },
-        { ukr: "Вони ось-ось вийдуть із кімнати.",
-          correct: "They are about to leave the room.",
-          wrong1: "They will about to leave the room.",
-          wrong2: "They are going to leave the room." },
-        { ukr: "Я впевнений, що вона прийде на вечірку.",
-          correct: "I am sure she will come to the party.",
-          wrong1: "I am sure she is going to come to the party.",
-          wrong2: "I am sure she comes to the party." },
-        { ukr: "Ми ось-ось розпочнемо нараду.",
-          correct: "We are about to start the meeting.",
-          wrong1: "We will about to start the meeting.",
-          wrong2: "We are going to start the meeting." },
-        { ukr: "Вони збираються купити новий будинок.",
-          correct: "They are going to buy a new house.",
-          wrong1: "They will buy a new house.",
-          wrong2: "They buy a new house." },
-        { ukr: "Я зачекаю на тебе біля входу.",
-          correct: "I will wait for you at the entrance.",
-          wrong1: "I am going to wait for you at the entrance.",
-          wrong2: "I wait for you at the entrance." },
-        { ukr: "Сонце ось-ось зійде.",
-          correct: "The sun is about to rise.",
-          wrong1: "The sun will rise.",
-          wrong2: "The sun going to rise." },
-        { ukr: "Вона передумала і не збирається їхати.",
-          correct: "She changed her mind and is not going to leave.",
-          wrong1: "She changed her mind and will not leave.",
-          wrong2: "She changed her mind and does not leave." },
-        { ukr: "Фільм ось-ось почнеться, сідайте на свої місця.",
-          correct: "The movie is about to start, take your seats.",
-          wrong1: "The movie will start, take your seats.",
-          wrong2: "The movie is going start, take your seats." },
-        { ukr: "Я ніколи не здамся, я обіцяю.",
-          correct: "I will never give up, I promise.",
-          wrong1: "I am going to never give up, I promise.",
-          wrong2: "I never give up, I promise." }
-    ];
-
-    let shuffledQuestions = [];
-    let currentIndex = 0;
-    let answeredCounter = 0;
-    let score = 0;
-    let answerLock = false;
-    let currentQuestionObj = null;
-    let currentOptions = [];
-    let currentCorrectIndex = -1;
-
-    const ukrSpan = document.getElementById("ukrPhrase");
-    const optionsDiv = document.getElementById("optionsList");
-    const feedbackDiv = document.getElementById("feedbackMessage");
-    const nextButton = document.getElementById("nextBtn");
-    const finishButton = document.getElementById("finishBtn");
-    const resetButton = document.getElementById("resetBtn");
-    const levelSpan = document.getElementById("levelLabel");
-    const progressFill = document.getElementById("progressFill");
-
-    function shuffleArray(arr) {
-        for (let i = arr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-        return arr;
-    }
-
-    function initQuestions() {
-        shuffledQuestions = shuffleArray([...QUESTIONS]);
-        currentIndex = 0;
-        answeredCounter = 0;
-        score = 0;
-    }
-
-    function shuffleOptions(correct, wrong1, wrong2) {
-        let opts = [correct, wrong1, wrong2];
-        for (let i = opts.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [opts[i], opts[j]] = [opts[j], opts[i]];
-        }
-        const correctIdx = opts.findIndex(opt => opt === correct);
-        return { optsList: opts, correctIdx };
-    }
-
-    function renderOptions(opts, correctIdx) {
-        optionsDiv.innerHTML = "";
-        opts.forEach((opt, idx) => {
-            const row = document.createElement("div");
-            row.className = "option-item";
-            const letterSpan = document.createElement("span");
-            letterSpan.className = "option-letter";
-            letterSpan.innerText = String.fromCharCode(65 + idx);
-            const textSpan = document.createElement("span");
-            textSpan.className = "option-english";
-            textSpan.innerText = opt;
-            row.appendChild(letterSpan);
-            row.appendChild(textSpan);
-            row.addEventListener("click", () => {
-                if (answerLock) return;
-                handleChoice(idx, correctIdx, opt);
-            });
-            optionsDiv.appendChild(row);
-        });
-    }
-
-    function handleChoice(selectedIdx, correctIdx, chosenText) {
-        if (answerLock) return;
-        answerLock = true;
-        const isAnswerCorrect = (selectedIdx === correctIdx);
-        const correctAnswer = currentOptions[correctIdx];
-        if (isAnswerCorrect) {
-            score++;
-            feedbackDiv.innerText = `correct. "${correctAnswer}" — exact translation. +1 point.`;
-            feedbackDiv.className = "feedback-block feedback-correct";
-        } else {
-            feedbackDiv.innerText = `incorrect. right answer: "${correctAnswer}". you chose: "${chosenText}".`;
-            feedbackDiv.className = "feedback-block feedback-wrong";
-        }
-        highlightChoices(selectedIdx, correctIdx, isAnswerCorrect);
-        disableOptions(true);
-        nextButton.disabled = false;
-        answeredCounter++;
-        updateProgressAndLabel();
-    }
-
-    function highlightChoices(chosen, correct, wasCorrect) {
-        const rows = document.querySelectorAll(".option-item");
-        rows.forEach((row, idx) => {
-            if (idx === correct) {
-                row.style.backgroundColor = "#eaf9f0";
-                row.style.borderLeft = "3px solid #5fae8b";
-            }
-            if (!wasCorrect && idx === chosen && idx !== correct) {
-                row.style.backgroundColor = "#fff0ea";
-                row.style.borderLeft = "3px solid #e09d7c";
-            }
-        });
-    }
-
-    function disableOptions(disabled) {
-        const rows = document.querySelectorAll(".option-item");
-        rows.forEach(row => {
-            if (disabled) {
-                row.style.pointerEvents = "none";
-                row.classList.add("opt-disabled");
-            } else {
-                row.style.pointerEvents = "auto";
-                row.classList.remove("opt-disabled");
-                row.style.backgroundColor = "";
-                row.style.borderLeft = "";
-            }
-        });
-    }
-
-    function updateProgressAndLabel() {
-        const percent = ((currentIndex + (answerLock ? 1 : 0)) / shuffledQuestions.length) * 100;
-        progressFill.style.width = `${percent}%`;
-        const displayedIndex = currentIndex + (answerLock ? 1 : 0);
-        levelSpan.innerText = `question ${displayedIndex} of ${shuffledQuestions.length}`;
-    }
-
-    function loadQuestion() {
-        if (currentIndex >= shuffledQuestions.length) {
-            finishTest();
-            return;
-        }
-        currentQuestionObj = shuffledQuestions[currentIndex];
-        const { optsList, correctIdx } = shuffleOptions(
-            currentQuestionObj.correct,
-            currentQuestionObj.wrong1,
-            currentQuestionObj.wrong2
-        );
-        currentOptions = optsList;
-        currentCorrectIndex = correctIdx;
-        ukrSpan.innerText = currentQuestionObj.ukr;
-        renderOptions(currentOptions, currentCorrectIndex);
-        answerLock = false;
-        nextButton.disabled = true;
-        feedbackDiv.innerText = "";
-        feedbackDiv.className = "feedback-block";
-        disableOptions(false);
-        updateProgressAndLabel();
-    }
-
-    function nextHandler() {
-        if (!answerLock && nextButton.disabled) return;
-        if (nextButton.disabled) return;
-        currentIndex++;
-        loadQuestion();
-    }
-
-    function finishTest() {
-        answerLock = true;
-        disableOptions(true);
-        nextButton.disabled = true;
-        ukrSpan.innerText = "test completed — summary";
-        optionsDiv.innerHTML = `<div style="background:#fefaf5; border:1px solid #e4e9ef; padding: 1.8rem; text-align:center; margin-top:10px;">
-            <strong>final result</strong><br>
-            total questions: ${shuffledQuestions.length}<br>
-            correct answers: ${score}<br>
-            thank you for training will / going to / about to.
-            </div>`;
-        feedbackDiv.innerText = "";
-        progressFill.style.width = "100%";
-        levelSpan.innerText = "completed";
-    }
-
-    function resetGame() {
-        initQuestions();
-        currentIndex = 0;
-        answerLock = false;
-        loadQuestion();
-        nextButton.disabled = true;
-        feedbackDiv.innerText = "";
-        feedbackDiv.className = "feedback-block";
-        disableOptions(false);
-    }
-
-    initQuestions();
-    loadQuestion();
-
-    nextButton.addEventListener("click", nextHandler);
-    finishButton.addEventListener("click", finishTest);
-    resetButton.addEventListener("click", resetGame);
-})();
-</script>
+ <table class="m" cellspacing="15">
+    <tr>
+      <td>
+        <img class="imgs" src="pop.jpeg" width="150"/>
+      </td>
+      <td>
+        <h1>reformoti</h1>
+        <p><em>Я працюю тільки над цим сайтом в <b>школі та дома</b></em></p>
+        <p>я люблю гуляти з друзями та грати на пк</p>
+      </td>
+    </tr>
+  </table>
+            <hr> 
+        <h1 class="DS" >Instagram and Discord</h1>
+    
+      <a class="button" href="https://discord.com/invite/8d2RQHvGhH?fbclid=PAAabJ22E4HcQn7CG1-r8H2DPBoJZ0UYCcJjBjLYC-MaHI6W43uy10eLq4ZOs">Discord</a> 
+      <a class="button" href="https://www.instagram.com/reformoti?igsh=Mm0ybzV0cTkxcm03" >Instagram</a> 
+  
+    <hr>
+        <h1>My hobb<samp>i</samp>es</h1>
+            <ol class="ool" >
+                <u>
+                 <li>voleyboll</li>
+                 <li>Gym</li>
+                 <li>gemes pc</li>
+                </u>
+            </ol>
+    <hr>
+    <h1>work experiens</h1>
+    <table border="3">
+        <tr class="trr" >
+            <th>Company</th>
+            <th>Position</th>
+            <th>Year</th>  
+        </tr>
+        <tr>
+              <td>home</td>
+              <td>boss</td>
+              <td>2009-2012</td> 
+        </tr>        
+        <tr>
+            <td>Appple</td>
+            <td>CEO</td>
+            <td>2013-2019</td>
+        </tr>
+        <tr>
+            <td>XpiX</td>
+            <td>owner</td>
+            <td>2020-till now</td>
+        </tr>
+    </table>
+    <hr>
+    <h1>My finished Pro<sup>J</sup>ects</h1>
+   
+      <div>
+        <a href="Ar.html" class="button">next web</a>
+        <a href="caculator.html" class="button">caculator</a>
+        <a href="indexJs.html" class="button">JS</a>
+        <a href="ioYT.html" class="button">YoTyb</a>
+        <a href="f.html" class="button">reformoti☻</a>
+        <a href="ht.html" class="button">gav</a>
+      </div>
+   <hr>
+   <h1>Contact M<sup>E</sup></h1>
+   <form action="">
+       <label for="name">your Name:</label>
+       <input class="inp" id="name" type="text" name="name" />
+    <br>
+       <label for="email">your Email:</label>
+       <input class="inp" id="email" type="text" name="email" />
+    </br>
+    <br>
+        <textarea class="inp" id="text" rows="2" cols="15" style="width: 199px; height: 11px;"></textarea>
+    </br>
+  </form>
 </body>
+  
 </html>
